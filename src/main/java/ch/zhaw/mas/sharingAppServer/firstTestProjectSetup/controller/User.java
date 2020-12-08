@@ -41,4 +41,6 @@ public class User {
         this.lastName = lastName;
     }
 
+    public void setId(String valueOf) {
+    }
 }
