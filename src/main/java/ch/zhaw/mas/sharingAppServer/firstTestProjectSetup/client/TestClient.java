@@ -8,6 +8,7 @@ public class TestClient {
 
     public static void main(String[] args) {
         test();
+        greeting();
 
     }
 
@@ -17,6 +18,15 @@ public class TestClient {
                 = "http://localhost:8080/books/test";
         ResponseEntity<String> response
                 = restTemplate.getForEntity(fooResourceUrl, String.class);
+    }
+
+    public static void greeting(){
+        RestTemplate restTemplate = new RestTemplate();
+        String fooResourceUrl
+                = "http://localhost:8080/hallo?name=Adrian";
+        ResponseEntity<String> response
+                = restTemplate.getForEntity(fooResourceUrl, String.class);
+        System.out.println(response);
     }
 
 }
