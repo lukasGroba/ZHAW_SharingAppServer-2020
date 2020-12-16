@@ -1,6 +1,10 @@
 package ch.zhaw.mas.sharingAppServer.serverSite;
 
+import lombok.Data;
+
 import java.io.Serializable;
+//@Data
+//@Entity
 
 public class UserModel implements Serializable {
 

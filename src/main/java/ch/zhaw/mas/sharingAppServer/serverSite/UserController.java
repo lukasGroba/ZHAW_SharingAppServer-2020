@@ -36,13 +36,14 @@ public class UserController {
         }
 
         @DeleteMapping(value = "/{id}")
-        public ResponseEntity<Long> deletePost(@PathVariable Long id) {
+        public ResponseEntity<List<UserModel>> deletePost(@PathVariable Long id) {
 
             List<UserModel> users = new ArrayList<>();
 
+            UserModel user;
             users = UserPersistance.deleteUserById(id);
 
-            return new ResponseEntity<>(id, HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.OK);
         }
 
 

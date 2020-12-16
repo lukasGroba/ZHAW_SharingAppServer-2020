@@ -67,6 +67,7 @@ public class UserPersistance implements Serializable {
 
     public static List<UserModel> deleteUserById(Long id) {
 
+        UserModel user;
         try
         {
             // Reading the object from a file
@@ -87,11 +88,34 @@ public class UserPersistance implements Serializable {
             System.out.println("IOException is caught");
         }
 
-        //void removeAll(List<Integer> list, Integer element) {
-        while (users.contains(id)) {
-                users.remove(id);
+        //void removeAll(List<Integer> list, Integer element){
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println(users.get(i));
+            user  = users.get(i);
+            if (user.getId().equals(id)) {
+                users.remove(i);
+            };
         }
 
+        try
+        {
+            //Saving of object in a file
+            FileOutputStream file = new FileOutputStream("src/user.ser");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            // Method for serialization of object
+            out.writeObject(users);
+
+            out.close();
+            file.close();
+
+            System.out.println("Object has been serialized");
+
+        }
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
+        }
 
         return users;
     }
