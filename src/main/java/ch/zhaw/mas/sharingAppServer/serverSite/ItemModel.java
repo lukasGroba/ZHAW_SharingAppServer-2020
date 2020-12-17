@@ -9,60 +9,79 @@ import java.util.Date;
 public class ItemModel implements Serializable {
 
     private String itemName;
-    private Integer itemID;
+    private int itemID;
     private String itemOwner;
-    private String itemOwnerMail;
+    //private String itemOwnerMail;
+    //private Boolean itemAvailable;
+    //private Double itemRating;
+    //private String itemDescription;
     private Date itemCreateDate;
-    private Boolean itemAvailable;
-    private Double itemRating;
-    private String itemDescription;
-    private Date itemLentFrom;
-    private Date itemRentTill;
+    //private int itemLentFrom;
+    //private int itemRentTill;
 
     public ItemModel() {
     }
 
-    public ItemModel(String itemName,
-                     Integer itemID,
-                     String itemOwner,
-                     String itemOwnerMail,
-                     Date itemCreateDate,
-                     Boolean  itemAvailable,
-                     Double itemRating,
-                     String itemDescription,
-                     Date itemLentFrom,
-                     Date itemRentTill) {
+/*    public ItemModel(String itemName,
+                     int itemID,
+                     String itemOwner
+                     //String itemOwnerMail,
+                     //Boolean  itemAvailable,
+                     //Double itemRating,
+                     //String itemDescription,
+                     //int itemCreateDate,
+                     //int itemLentFrom,
+                     //int itemRentTill
+    ) {
 
         this.itemName = itemName;
         this.itemID = itemID;
         this.itemOwner = itemOwner;
-        this.itemOwnerMail = itemOwnerMail;
-        this.itemCreateDate = itemCreateDate;
-        this.itemAvailable = itemAvailable;
-        this.itemRating = itemRating;
-        this.itemDescription = itemDescription;
-        this.itemLentFrom = itemLentFrom;
-        this.itemRentTill = itemRentTill;
+        //this.itemOwnerMail = itemOwnerMail;
+        //this.itemAvailable = itemAvailable;
+        //this.itemRating = itemRating;
+        //this.itemDescription = itemDescription;
+        //this.itemCreateDate = itemCreateDate;
+        //this.itemLentFrom = itemLentFrom;
+        //this.itemRentTill = itemRentTill;
     }
 
+ */
     public ItemModel(ItemModel item) {
 
-        this.itemName = itemName;
-        this.itemID = itemID;
-        this.itemOwner = itemOwner;
-        this.itemOwnerMail = itemOwnerMail;
-        this.itemCreateDate = itemCreateDate;
-        this.itemAvailable = itemAvailable;
-        this.itemRating = itemRating;
-        this.itemDescription = itemDescription;
-        this.itemLentFrom = itemLentFrom;
-        this.itemRentTill = itemRentTill;
+        this.itemName = item.itemName;
+        this.itemID = item.itemID;
+        this.itemOwner = item.itemOwner;
+      //  this.itemOwnerMail = item.itemOwnerMail;
+      //  this.itemAvailable = item.itemAvailable;
+      //  this.itemRating = item.itemRating;
+      //  this.itemDescription = item.itemDescription;
+        this.itemCreateDate = new Date();
+      //  this.itemLentFrom = 14;
+      //  this.itemRentTill = 17;
 
     }
 
-    public void setId(String valueOf) {
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getItemID() {
+        return itemID;
+    }
+
+    public String getItemOwner() {
+        return itemOwner;
+    }
+
+    public Date getItemCreateDate() {
+        return itemCreateDate;
+    }
+ /*   public void setId(String valueOf) {
 
        this.itemID = itemID;
 
     }
+
+  */
 }

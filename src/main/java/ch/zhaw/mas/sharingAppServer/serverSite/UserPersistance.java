@@ -38,7 +38,7 @@ public class UserPersistance implements Serializable {
 
     public static List<UserModel> addNewUser(UserModel user) {
 
-        user.setId("10");
+        //user.setId("10");
         users.add(new UserModel(user));
 
         try

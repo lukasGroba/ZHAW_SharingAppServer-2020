@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemPersistance {
+public class ItemPersistance implements Serializable {
 
     private static List<ItemModel> items = new ArrayList<>();
 
@@ -36,9 +36,9 @@ public class ItemPersistance {
 
     }
 
-    public static List<ItemModel> addItem(ItemModel item) {
+    public static List<ItemModel> addNewItem(ItemModel item) {
 
-        item.setId("10");
+        //item.setId("10");
         items.add(new ItemModel(item));
 
         try
