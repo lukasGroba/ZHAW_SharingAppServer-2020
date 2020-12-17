@@ -18,16 +18,16 @@ public class UserModel implements Serializable {
     public UserModel() {
     }
 
-    public UserModel(String firstName, String lastName, String eMail) {
+/*    public UserModel(String firstName, String lastName, String eMail) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.eMail = eMail;
     }
-
+*/
     public UserModel(UserModel user) {
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.eMail = user.geteMail();
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.eMail = user.eMail;
         this.id = countingID;
         countingID++;
     }

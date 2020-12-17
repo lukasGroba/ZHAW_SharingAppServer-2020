@@ -28,7 +28,7 @@ public class ItemController {
 
         List<ItemModel> items = new ArrayList<>();
 
-        items = ItemPersistance.addItem(item);
+        items = ItemPersistance.addNewItem(item);
 
         return new ResponseEntity<>(items, HttpStatus.CREATED);
 
