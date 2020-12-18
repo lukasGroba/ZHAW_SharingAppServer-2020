@@ -9,9 +9,9 @@ import java.util.Date;
 public class ItemModel implements Serializable {
 
     private String itemName;
-    private int itemID;
-    private String itemOwner;
-    //private String itemOwnerMail;
+    private int itemID; //number
+    private String itemOwner; //-> ID
+    //private String itemOwnerMail; //e-Mail address
     //private Boolean itemAvailable;
     //private Double itemRating;
     //private String itemDescription;
