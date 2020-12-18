@@ -11,7 +11,7 @@ public class UserModel implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
-    private String eMail;
+    private String mail;
     private String password;
 
     private static Long countingID = Long.valueOf(0);
@@ -28,8 +28,8 @@ public class UserModel implements Serializable {
     public UserModel(UserModel user) {
         this.firstName = user.firstName;
         this.lastName = user.lastName;
-        this.eMail = user.eMail; //also username
-        this.password = user.password;
+        this.mail = user.mail; //also ID
+        this.password = user.password; //password
 
         this.id = countingID;
         countingID++;
