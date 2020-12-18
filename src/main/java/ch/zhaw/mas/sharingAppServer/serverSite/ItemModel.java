@@ -16,7 +16,7 @@ public class ItemModel implements Serializable {
     //private Double itemRating;
     //private String itemDescription;
     private Date itemCreateDate;
-    //private int itemLentFrom;
+    private Date itemLentFrom;
     //private int itemRentTill;
 
     public ItemModel() {
@@ -57,7 +57,7 @@ public class ItemModel implements Serializable {
       //  this.itemRating = item.itemRating;
       //  this.itemDescription = item.itemDescription;
         this.itemCreateDate = new Date();
-      //  this.itemLentFrom = 14;
+        this.itemLentFrom = item.itemLentFrom;
       //  this.itemRentTill = 17;
 
     }
@@ -74,9 +74,15 @@ public class ItemModel implements Serializable {
         return itemOwner;
     }
 
+    public Date getItemLentFrom() {
+        return itemLentFrom;
+    }
+
     public Date getItemCreateDate() {
         return itemCreateDate;
     }
+
+
  /*   public void setId(String valueOf) {
 
        this.itemID = itemID;

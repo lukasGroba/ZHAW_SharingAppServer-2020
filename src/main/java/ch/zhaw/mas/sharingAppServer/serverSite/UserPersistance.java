@@ -119,4 +119,39 @@ public class UserPersistance implements Serializable {
 
         return users;
     }
+
+    public static boolean checkLogin(String userName, String password) {
+
+        UserModel user;
+        try
+        {
+            // Reading the object from a file
+            FileInputStream file = new FileInputStream("src/user.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            // Method for deserialization of object
+            users = (List<UserModel>) in.readObject();
+
+            in.close();
+            file.close();
+
+            System.out.println("Object has been deserialized ");
+        }
+
+        catch(IOException | ClassNotFoundException ex)
+        {
+            System.out.println("IOException is caught");
+        }
+
+        //void removeAll(List<Integer> list, Integer element){
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println(users.get(i));
+            user  = users.get(i);
+            if (user.getPassword().equals(password) && user.geteMail().equals(userName)) {
+                return true;
+            };
+        }
+
+        return false;
+    }
 }

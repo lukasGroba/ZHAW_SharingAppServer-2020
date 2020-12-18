@@ -34,4 +34,15 @@ public class ItemController {
 
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<List<ItemModel>> deletePost(@PathVariable int id) {
+
+        List<ItemModel> items = new ArrayList<>();
+
+        ItemModel item;
+        items = ItemPersistance.deleteItemById(id);
+
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
+
 }

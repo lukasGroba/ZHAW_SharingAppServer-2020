@@ -1,4 +1,4 @@
 package ch.zhaw.mas.sharingAppServer.serverSite;
 
-public class UserRepository {
+public class LoginController {
 }

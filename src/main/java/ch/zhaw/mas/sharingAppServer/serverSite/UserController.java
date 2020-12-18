@@ -1,6 +1,5 @@
 package ch.zhaw.mas.sharingAppServer.serverSite;
 
-import ch.zhaw.mas.sharingAppServer.firstTestProjectSetup.controller.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +11,10 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-        private static Integer userId = 0;
+    private static Integer userId = 0;
+    private boolean LoginOK;
 
-        @GetMapping
+    @GetMapping
         public ResponseEntity<List<UserModel>> getUsers() {
 
             List<UserModel> users = new ArrayList<>();
@@ -34,6 +34,21 @@ public class UserController {
             return new ResponseEntity<>(users, HttpStatus.CREATED);
 
         }
+
+        @PostMapping ("/login")
+        public boolean checkLogin(@RequestBody String userName, String password) {
+
+        //List<UserModel> users = new ArrayList<>();
+
+        //users = UserPersistance.checkLogin(userName, password);
+
+            LoginOK = UserPersistance.checkLogin(userName, password);
+            return LoginOK;
+
+
+        //return new ResponseEntity<>(users, HttpStatus.CREATED);
+
+    }
 
         @DeleteMapping(value = "/{id}")
         public ResponseEntity<List<UserModel>> deletePost(@PathVariable Long id) {
