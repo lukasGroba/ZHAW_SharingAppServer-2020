@@ -1,0 +1,27 @@
+=== Add user table ===
+
+create table user
+(
+	id int auto_increment,
+	lastname VARCHAR not null,
+	surname VARCHAR not null
+);
+
+create unique index USER_ID_UINDEX
+	on user (id);
+
+alter table user
+	add constraint USER_PK
+		primary key (id);
+
+=== Insert user in user table ===
+
+INSERT INTO PUBLIC.USER (LASTNAME, SURNAME) VALUES ('Fischer', 'Adrian')
+
+=== Select all from user table ===
+
+SELECT t.*
+FROM PUBLIC.USER t
+ORDER BY ID DESC
+LIMIT 501
+
