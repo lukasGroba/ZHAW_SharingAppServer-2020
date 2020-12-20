@@ -14,7 +14,7 @@ public class ItemController {
     private static Integer itemId = 0;
 
     @GetMapping
-    public ResponseEntity<List<ItemModel>> getItems() {
+    public ResponseEntity<List<ItemModel>> getAllItems() {
 
         List<ItemModel> items = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<List<ItemModel>> addItem(@RequestBody ItemModel item) {
+    public ResponseEntity<List<ItemModel>> addNewItem(@RequestBody ItemModel item) {
 
         List<ItemModel> items = new ArrayList<>();
 
@@ -35,7 +35,7 @@ public class ItemController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<List<ItemModel>> deletePost(@PathVariable int id) {
+    public ResponseEntity<List<ItemModel>> deleteItemById(@PathVariable int id) {
 
         List<ItemModel> items = new ArrayList<>();
 
