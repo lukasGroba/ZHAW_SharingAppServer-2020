@@ -47,6 +47,10 @@ public class UserModel implements Serializable {
         this.mail = mail;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setId(String valueOf) {
     }
 

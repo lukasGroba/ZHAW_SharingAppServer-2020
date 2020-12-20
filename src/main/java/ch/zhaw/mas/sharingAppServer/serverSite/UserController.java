@@ -9,68 +9,57 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController<T> {
 
     private static Integer userId = 0;
     private boolean LoginOK;
 
     @GetMapping
-        public ResponseEntity<List<UserModel>> getUsers() {
+    public ResponseEntity<List<UserModel>> getUsers() {
 
             List<UserModel> users = new ArrayList<>();
 
             users = UserPersistance.getAllUsers();
 
             return new ResponseEntity<>(users, HttpStatus.OK);
-        }
+    }
 
-        @PostMapping
-        public HttpStatus addUser(@RequestBody UserModel user) {
-
-            List<UserModel> users = new ArrayList<>();
-
-            users = UserPersistance.addNewUser(user);
-
-            //return new ResponseEntity<>(users, HttpStatus.CREATED);
-            return HttpStatus.CREATED;
-
-        }
-
-        @PostMapping ("/login")
-        public ResponseEntity<List<UserModel>> checkLogin(@RequestBody UserModel user) {
-
-        List<UserModel> users = new ArrayList<>();
-
-        users = UserPersistance.checkLogin(user.getMail(), user.getPassword());
-
-        //LoginOK = UserPersistance.checkLogin(mail, password);
-
-            return new ResponseEntity<>(users, HttpStatus.CREATED);
-
-        //return new ResponseEntity<>(users, HttpStatus.CREATED);
-
-        }
-
-        /*
-        @PostMapping ("/login")
-        public boolean checkLogin(@RequestBody String mail, String password) {
+    @GetMapping ("/user")
+    public ResponseEntity<UserModel> getUserByMail(@RequestParam (value = "user") String mail) {
 
         //List<UserModel> users = new ArrayList<>();
 
-        //users = UserPersistance.checkLogin(userName, password);
+        UserModel user = UserPersistance.getUserByMail(mail);
 
-            LoginOK = UserPersistance.checkLogin(mail, password);
-            return LoginOK;
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
+    @PostMapping
+    public ResponseEntity<UserModel> addUser(@RequestBody UserModel user) {
 
-        //return new ResponseEntity<>(users, HttpStatus.CREATED);
+        //List<UserModel> users = new ArrayList<>();
+
+        if (UserPersistance.checkMailExist(user)) {
+            return new ResponseEntity<>(user, HttpStatus.IM_USED);
+        }
+        else {
+            UserPersistance.addNewUser(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping ("/login")
+    public HttpStatus checkLogin(@RequestBody UserModel user) {
+
+        if (UserPersistance.checkLogin(user)) {
+            return HttpStatus.OK;
+        }
+        return HttpStatus.UNAUTHORIZED;
 
         }
 
-         */
-
     @DeleteMapping
-    public ResponseEntity<List<UserModel>> deleteUser(@RequestParam(value = "user") String mail) {
+    public ResponseEntity<List<UserModel>> deleteUserByMail(@RequestParam(value = "user") String mail) {
 
         List<UserModel> users = new ArrayList<>();
 
@@ -79,17 +68,14 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    /*
-        @DeleteMapping(value = "/{mail}")
-        public ResponseEntity<List<UserModel>> deletePost(@PathVariable String mail) {
+    @DeleteMapping ("/deleteAll")
+    public ResponseEntity<List<UserModel>> deleteAllItems() {
 
-            List<UserModel> users = new ArrayList<>();
+        List<UserModel> users = new ArrayList<>();
 
-            UserModel user;
-            users = UserPersistance.deleteUserByMail(mail);
+        users = UserPersistance.deleteAllItem();
 
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }
-     */
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
 }
