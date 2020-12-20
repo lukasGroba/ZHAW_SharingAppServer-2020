@@ -1,6 +1,9 @@
 package ch.zhaw.mas.sharingAppServer.serverSite;
 
+import ch.zhaw.mas.sharingAppServer.firstTestProjectSetup.controller.User;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 //@Data
@@ -8,16 +11,15 @@ import java.util.Date;
 
 public class ItemModel implements Serializable {
 
-    private String itemName;
-    private int itemID; //number
-    private String itemOwner; //-> ID
-    //private String itemOwnerMail; //e-Mail address
-    //private Boolean itemAvailable;
-    //private Double itemRating;
-    //private String itemDescription;
-    private Date itemCreateDate;
-    private Date itemLentFrom;
-    //private int itemRentTill;
+    private int id;
+    private String name;
+    private Date dateCreated;
+    private String description;
+    private boolean isLent;
+    private Double rating;
+    private User owner;
+    private LocalDate lentFrom;
+    private LocalDate rentTill;
 
     public ItemModel() {
     }
@@ -47,47 +49,65 @@ public class ItemModel implements Serializable {
     }
 
  */
+
     public ItemModel(ItemModel item) {
 
-        this.itemName = item.itemName;
-        this.itemID = item.itemID;
-        this.itemOwner = item.itemOwner;
-      //  this.itemOwnerMail = item.itemOwnerMail;
-      //  this.itemAvailable = item.itemAvailable;
-      //  this.itemRating = item.itemRating;
-      //  this.itemDescription = item.itemDescription;
-        this.itemCreateDate = new Date();
-        this.itemLentFrom = item.itemLentFrom;
-      //  this.itemRentTill = 17;
+        int id; //number
+        String name;
+        Date dateCreated;
+        String description;
+        boolean isLent;
+        Double rating;
+        User owner;
+        LocalDate lentFrom;
+        LocalDate rentTill;
+
+        this.id = item.id;
+        this.name = item.name;
+        this.dateCreated = new Date();
+        this.description = item.description;
+        this.isLent = item.isLent;
+        this.rating = item.rating;
+        this.owner = item.owner;
+        this.lentFrom = item.lentFrom;
+        this.rentTill = item.rentTill;
 
     }
 
-    public String getItemName() {
-        return itemName;
+    public int getId() {
+        return id;
     }
 
-    public int getItemID() {
-        return itemID;
+    public String getName() {
+        return name;
     }
 
-    public String getItemOwner() {
-        return itemOwner;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
-    public Date getItemLentFrom() {
-        return itemLentFrom;
+    public String getDescription() {
+        return description;
     }
 
-    public Date getItemCreateDate() {
-        return itemCreateDate;
+    public boolean getIsLent() {
+        return isLent;
     }
 
-
- /*   public void setId(String valueOf) {
-
-       this.itemID = itemID;
-
+    public Double getRating() {
+        return rating;
     }
 
-  */
+    public User getOwner() {
+        return owner;
+    }
+
+    public LocalDate getLentFrom() {
+        return lentFrom;
+    }
+
+    public LocalDate getRentTill() {
+        return rentTill;
+    }
+
 }

@@ -65,7 +65,7 @@ public class UserPersistance implements Serializable {
 
     }
 
-    public static List<UserModel> deleteUserById(Long id) {
+    public static List<UserModel> deleteUserByMail(String mail) {
 
         UserModel user;
         try
@@ -92,7 +92,7 @@ public class UserPersistance implements Serializable {
         for (int i = 0; i < users.size(); i++) {
             System.out.println(users.get(i));
             user  = users.get(i);
-            if (user.getId().equals(id)) {
+            if (user.getMail().equals(mail)) {
                 users.remove(i);
             };
         }
@@ -120,7 +120,7 @@ public class UserPersistance implements Serializable {
         return users;
     }
 
-    public static boolean checkLogin(String userName, String password) {
+    public static List<UserModel> checkLogin(String mail, String password) {
 
         UserModel user;
         try
@@ -147,11 +147,11 @@ public class UserPersistance implements Serializable {
         for (int i = 0; i < users.size(); i++) {
             System.out.println(users.get(i));
             user  = users.get(i);
-            if (user.getPassword().equals(password) && user.geteMail().equals(userName)) {
-                return true;
+            if (user.getPassword().equals(password) && user.getMail().equals(mail)) {
+                return users;
             };
         }
 
-        return false;
+        return users;
     }
 }

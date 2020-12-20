@@ -25,41 +25,71 @@ public class UserController {
         }
 
         @PostMapping
-        public ResponseEntity<List<UserModel>> addUser(@RequestBody UserModel user) {
+        public HttpStatus addUser(@RequestBody UserModel user) {
 
             List<UserModel> users = new ArrayList<>();
-            //user.setId(String.valueOf(userId++));
+
             users = UserPersistance.addNewUser(user);
 
-            return new ResponseEntity<>(users, HttpStatus.CREATED);
+            //return new ResponseEntity<>(users, HttpStatus.CREATED);
+            return HttpStatus.CREATED;
 
         }
 
         @PostMapping ("/login")
-        public boolean checkLogin(@RequestBody String userName, String password) {
+        public ResponseEntity<List<UserModel>> checkLogin(@RequestBody UserModel user) {
+
+        List<UserModel> users = new ArrayList<>();
+
+        users = UserPersistance.checkLogin(user.getMail(), user.getPassword());
+
+        //LoginOK = UserPersistance.checkLogin(mail, password);
+
+            return new ResponseEntity<>(users, HttpStatus.CREATED);
+
+        //return new ResponseEntity<>(users, HttpStatus.CREATED);
+
+        }
+
+        /*
+        @PostMapping ("/login")
+        public boolean checkLogin(@RequestBody String mail, String password) {
 
         //List<UserModel> users = new ArrayList<>();
 
         //users = UserPersistance.checkLogin(userName, password);
 
-            LoginOK = UserPersistance.checkLogin(userName, password);
+            LoginOK = UserPersistance.checkLogin(mail, password);
             return LoginOK;
 
 
         //return new ResponseEntity<>(users, HttpStatus.CREATED);
 
+        }
+
+         */
+
+    @DeleteMapping
+    public ResponseEntity<List<UserModel>> deleteUser(@RequestParam(value = "user") String mail) {
+
+        List<UserModel> users = new ArrayList<>();
+
+        users = UserPersistance.deleteUserByMail(mail);
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-        @DeleteMapping(value = "/{id}")
-        public ResponseEntity<List<UserModel>> deletePost(@PathVariable Long id) {
+    /*
+        @DeleteMapping(value = "/{mail}")
+        public ResponseEntity<List<UserModel>> deletePost(@PathVariable String mail) {
 
             List<UserModel> users = new ArrayList<>();
 
             UserModel user;
-            users = UserPersistance.deleteUserById(id);
+            users = UserPersistance.deleteUserByMail(mail);
 
             return new ResponseEntity<>(users, HttpStatus.OK);
         }
-
+     */
 
 }

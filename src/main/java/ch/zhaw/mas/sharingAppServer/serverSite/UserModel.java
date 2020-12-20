@@ -8,79 +8,46 @@ import java.io.Serializable;
 
 public class UserModel implements Serializable {
 
-    private Long id;
-    private String firstName;
-    private String lastName;
+    private String username;
     private String mail;
     private String password;
-
-    private static Long countingID = Long.valueOf(0);
 
     public UserModel() {
     }
 
-/*    public UserModel(String firstName, String lastName, String eMail) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.eMail = eMail;
-    }
-*/
     public UserModel(UserModel user) {
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
+        this.username = user.username;
         this.mail = user.mail; //also ID
         this.password = user.password; //password
-
-        this.id = countingID;
-        countingID++;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "User[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
+                "User[id=%d, firstName='%s', lastName='%s']", username);
     }
 
-    public Long getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String geteMail() {
-        return eMail;
+    public String getMail() {
+        return mail;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setId(String valueOf) {
     }
-
-    /*public Long getID() {
-        return id;
-    }
-
-     */
 
 }
