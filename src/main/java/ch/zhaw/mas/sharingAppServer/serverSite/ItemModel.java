@@ -1,6 +1,6 @@
 package ch.zhaw.mas.sharingAppServer.serverSite;
 
-import ch.zhaw.mas.sharingAppServer.firstTestProjectSetup.controller.User;
+//import ch.zhaw.mas.sharingAppServer.firstTestProjectSetup.controller.User;
 
 import java.io.Serializable;
 import java.time.LocalDate;

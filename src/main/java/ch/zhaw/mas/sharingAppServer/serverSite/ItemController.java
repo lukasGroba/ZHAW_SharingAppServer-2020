@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +30,15 @@ public class ItemController {
 
         List<ItemModel> items = new ArrayList<>();
 
-        items = ItemPersistance.addNewItem(item);
+        try {
+            items = ItemPersistance.addNewItem(item);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        return new ResponseEntity<>(items, HttpStatus.CREATED);
+        return new ResponseEntity<>(items, HttpStatus.OK);
+        //Try/Catch: File not found Error -> Status senden
+        //Try/Catch: ...
 
     }
 

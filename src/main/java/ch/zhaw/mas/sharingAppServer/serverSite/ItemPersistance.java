@@ -36,10 +36,10 @@ public class ItemPersistance implements Serializable {
 
     }
 
-    public static List<ItemModel> addNewItem(ItemModel item) {
+    public static List<ItemModel> addNewItem(ItemModel item) throws IOException, ClassNotFoundException {
 
-        try
-        {
+        //try
+        //{
             // Reading the object from a file
             FileInputStream file = new FileInputStream("src/item.ser");
             ObjectInputStream in = new ObjectInputStream(file);
@@ -55,18 +55,18 @@ public class ItemPersistance implements Serializable {
             item.setHighestId(getHighestId()+1);
 
             items.add(new ItemModel(item));
-        }
+        //}
 
-        catch(IOException | ClassNotFoundException ex)
-        {
+        //catch(IOException | ClassNotFoundException ex)
+        //{
             System.out.println("IOException is caught");
-        }
+        //}
 
         try
         {
             //Saving of object in a file
-            FileOutputStream file = new FileOutputStream("src/item.ser");
-            ObjectOutputStream out = new ObjectOutputStream(file);
+            FileOutputStream file1 = new FileOutputStream("src/item.ser");
+            ObjectOutputStream out = new ObjectOutputStream(file1);
 
             // Method for serialization of object
             out.writeObject(items);
