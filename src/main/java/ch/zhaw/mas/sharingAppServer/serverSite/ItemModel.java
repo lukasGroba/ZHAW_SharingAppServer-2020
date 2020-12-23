@@ -2,6 +2,8 @@ package ch.zhaw.mas.sharingAppServer.serverSite;
 
 //import ch.zhaw.mas.sharingAppServer.firstTestProjectSetup.controller.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -13,7 +15,7 @@ public class ItemModel implements Serializable {
 
     private int id;
     private String name;
-    private Date dateCreated;
+    private LocalDate dateCreated;
     private String description;
     private boolean isLent;
     private Double rating;
@@ -38,7 +40,7 @@ public class ItemModel implements Serializable {
 
         this.id = item.id;
         this.name = item.name;
-        this.dateCreated = new Date();
+        this.dateCreated = LocalDate.now();
         this.description = item.description;
         this.isLent = item.isLent;
         this.rating = item.rating;
@@ -56,8 +58,12 @@ public class ItemModel implements Serializable {
         return name;
     }
 
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public String getDescription() {

@@ -8,12 +8,12 @@ public class ItemPersistance implements Serializable {
 
     private static List<ItemModel> items = new ArrayList<>();
 
-    public static <items> List<ItemModel> getAllItems() {
+    public static <items> List<ItemModel> getAllItems() throws IOException, ClassNotFoundException {
 
         //List<ItemModel> items = new ArrayList<>();
 
-        try
-        {
+//        try
+//        {
             // Reading the object from a file
             FileInputStream file = new FileInputStream("src/item.ser");
             ObjectInputStream in = new ObjectInputStream(file);
@@ -25,12 +25,12 @@ public class ItemPersistance implements Serializable {
             file.close();
 
             System.out.println("Object has been deserialized ");
-        }
+//        }
 
-        catch(IOException | ClassNotFoundException ex)
-        {
-            System.out.println("IOException is caught");
-        }
+//        catch(IOException | ClassNotFoundException ex)
+//        {
+//            System.out.println("IOException is caught");
+//        }
 
         return items;
 

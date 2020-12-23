@@ -16,7 +16,7 @@ public class ItemController {
     private static Integer itemId = 0;
 
     @GetMapping
-    public ResponseEntity<List<ItemModel>> getAllItems() {
+    public ResponseEntity<List<ItemModel>> getAllItems() throws IOException, ClassNotFoundException {
 
         List<ItemModel> items = new ArrayList<>();
 
