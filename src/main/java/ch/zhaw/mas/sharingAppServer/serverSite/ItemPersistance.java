@@ -12,8 +12,8 @@ public class ItemPersistance implements Serializable {
 
         //List<ItemModel> items = new ArrayList<>();
 
-//        try
-//        {
+        try
+        {
             // Reading the object from a file
             FileInputStream file = new FileInputStream("src/item.ser");
             ObjectInputStream in = new ObjectInputStream(file);
@@ -25,12 +25,12 @@ public class ItemPersistance implements Serializable {
             file.close();
 
             System.out.println("Object has been deserialized ");
-//        }
+        }
 
-//        catch(IOException | ClassNotFoundException ex)
-//        {
-//            System.out.println("IOException is caught");
-//        }
+        catch(IOException | ClassNotFoundException ex)
+        {
+            System.out.println("IOException is caught");
+        }
 
         return items;
 
@@ -38,8 +38,8 @@ public class ItemPersistance implements Serializable {
 
     public static List<ItemModel> addNewItem(ItemModel item) throws IOException, ClassNotFoundException {
 
-        //try
-        //{
+        try
+        {
             // Reading the object from a file
             FileInputStream file = new FileInputStream("src/item.ser");
             ObjectInputStream in = new ObjectInputStream(file);
@@ -50,23 +50,43 @@ public class ItemPersistance implements Serializable {
             in.close();
             file.close();
 
-            System.out.println("Object has been deserialized ");
+            System.out.println("Object has been deserialized addNewItem");
 
             item.setHighestId(getHighestId()+1);
 
-            items.add(new ItemModel(item));
-        //}
+            String mail = item.getMailFromOwner(item);
+            // Reading the object from a file
+            List<UserModel> users = new ArrayList<>();
+            FileInputStream file1 = new FileInputStream("src/user.ser");
+            ObjectInputStream in1 = new ObjectInputStream(file1);
 
-        //catch(IOException | ClassNotFoundException ex)
-        //{
+            // Method for deserialization of object
+            users = (List<UserModel>) in1.readObject();
+
+            in1.close();
+            file1.close();
+
+            System.out.println("Object has been deserialized addNewUser");
+
+            for (int i = 0; i < users.size(); i++) {
+                UserModel user  = users.get(i);
+                if (users.get(i).getMail().equals(mail)) {
+                    items.add(new ItemModel(item));
+                }
+            }
+
+        }
+
+        catch(IOException | ClassNotFoundException ex)
+        {
             System.out.println("IOException is caught");
-        //}
+        }
 
         try
         {
             //Saving of object in a file
-            FileOutputStream file1 = new FileOutputStream("src/item.ser");
-            ObjectOutputStream out = new ObjectOutputStream(file1);
+            FileOutputStream file = new FileOutputStream("src/item.ser");
+            ObjectOutputStream out = new ObjectOutputStream(file);
 
             // Method for serialization of object
             out.writeObject(items);

@@ -1,11 +1,11 @@
 package ch.zhaw.mas.sharingAppServer.serverSite;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +20,17 @@ public class ItemController {
 
         List<ItemModel> items = new ArrayList<>();
 
-        items = ItemPersistance.getAllItems();
+        try {
+            items = ItemPersistance.getAllItems();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<ItemModel>>(items, HttpStatus.NOT_FOUND);
 
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return new ResponseEntity<>(items, HttpStatus.OK);
+
     }
 
     @PostMapping

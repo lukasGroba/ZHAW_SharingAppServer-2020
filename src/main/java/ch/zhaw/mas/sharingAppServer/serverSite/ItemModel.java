@@ -93,4 +93,10 @@ public class ItemModel implements Serializable {
     public void setHighestId(int highestId) {
         this.id = highestId;
     }
+
+    public String getMailFromOwner(ItemModel item){
+        UserModel user = item.getOwner();
+        String mailFromOwner = user.getMail();
+        return mailFromOwner;
+    }
 }
