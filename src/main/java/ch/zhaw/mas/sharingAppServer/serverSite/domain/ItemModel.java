@@ -99,4 +99,12 @@ public class ItemModel implements Serializable {
         String mailFromOwner = user.getMail();
         return mailFromOwner;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

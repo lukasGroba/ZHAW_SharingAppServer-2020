@@ -61,4 +61,28 @@ public class ItemController {
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateItem(@PathVariable("id") int id,
+                                                 @RequestBody ItemModel item)
+    {
+        int id1 = id;
+        boolean isItemExist = ItemPersistance.isItemExist(id);
+
+        System.out.println("Boolean/isItemExist: " + isItemExist);
+        System.out.println("id1: " + id1);
+        System.out.println("id: " + id);
+
+        if (isItemExist)
+        {
+            ItemPersistance.updateItem(id1, item);
+            return new ResponseEntity<>("Item is updated successsfully", HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>("Item does not exist", HttpStatus.NOT_FOUND);
+            //throw new ItemNotfoundException();
+        }
+
+    }
+
 }
