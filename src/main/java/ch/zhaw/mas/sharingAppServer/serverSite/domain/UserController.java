@@ -9,61 +9,67 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserController<T> {
+public class UserController {
 
-    private static Integer userId = 0;
+    private Integer userId = 0;
     private boolean LoginOK;
+
+    UserService userService = new UserService();
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getUsers() {
 
-            List<UserModel> users = new ArrayList<>();
+        List<UserModel> users = new ArrayList<>();
 
-            users = UserService.getAllUsers();
+        users = userService.getAllUsers();
 
-            return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+
     }
 
     @GetMapping ("/user")
-    public ResponseEntity<UserModel> getUserByMail(@RequestParam (value = "user") String mail) {
+    public ResponseEntity<Object> getUserByMail(@RequestParam (value = "user") String mail) {
 
-        //List<UserModel> users = new ArrayList<>();
+        if (userService.checkMailAllreadyInUse(mail)){
+            UserModel user = userService.getUserByMail(mail);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("No user found with this mail", HttpStatus.NOT_FOUND);
+        }
 
-        UserModel user = UserService.getUserByMail(mail);
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> addUser(@RequestBody UserModel user) {
+    public ResponseEntity<Object> addUser(@RequestBody UserModel user) {
 
-        //List<UserModel> users = new ArrayList<>();
-
-        if (UserService.checkMailExist(user)) {
-            return new ResponseEntity<>(user, HttpStatus.IM_USED);
+        if (user.getPassword() == null || user.getUsername() == null || user.getMail() == null ) {
+            return new ResponseEntity<>("Data in request are missing", HttpStatus.BAD_REQUEST);
+        }
+        else if (userService.checkMailAllreadyInUse(user)) {
+                return new ResponseEntity<>("Mail already used by another user", HttpStatus.IM_USED);
         }
         else {
-            UserService.addNewUser(user);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            userService.addNewUser(user);
+            return new ResponseEntity<>("New user is created successfully with mail: " + user.getMail(), HttpStatus.CREATED);
         }
     }
 
     @PostMapping ("/login")
-    public HttpStatus checkLogin(@RequestBody UserModel user) {
+    public ResponseEntity<Object> checkLogin(@RequestBody UserModel user) {
 
-        if (UserService.checkLogin(user)) {
-            return HttpStatus.OK;
+        if (userService.checkLogin(user)) {
+            return new ResponseEntity<>("Login check successful", HttpStatus.ACCEPTED);
         }
-        return HttpStatus.UNAUTHORIZED;
-
-        }
+        return new ResponseEntity<>("Login check not successful", HttpStatus.UNAUTHORIZED);
+    }
 
     @DeleteMapping
     public ResponseEntity<List<UserModel>> deleteUserByMail(@RequestParam(value = "user") String mail) {
 
         List<UserModel> users = new ArrayList<>();
 
-        users = UserService.deleteUserByMail(mail);
+        users = userService.deleteUserByMail(mail);
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -73,7 +79,7 @@ public class UserController<T> {
 
         List<UserModel> users = new ArrayList<>();
 
-        users = UserService.deleteAllItem();
+        users = userService.deleteAllItem();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
