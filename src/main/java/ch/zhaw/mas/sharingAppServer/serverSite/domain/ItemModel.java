@@ -1,8 +1,4 @@
-package ch.zhaw.mas.sharingAppServer.serverSite;
-
-//import ch.zhaw.mas.sharingAppServer.firstTestProjectSetup.controller.User;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;

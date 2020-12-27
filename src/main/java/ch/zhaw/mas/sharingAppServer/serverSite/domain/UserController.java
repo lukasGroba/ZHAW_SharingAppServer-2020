@@ -1,4 +1,4 @@
-package ch.zhaw.mas.sharingAppServer.serverSite;
+package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class UserController<T> {
 
             List<UserModel> users = new ArrayList<>();
 
-            users = UserPersistance.getAllUsers();
+            users = UserService.getAllUsers();
 
             return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -29,7 +29,7 @@ public class UserController<T> {
 
         //List<UserModel> users = new ArrayList<>();
 
-        UserModel user = UserPersistance.getUserByMail(mail);
+        UserModel user = UserService.getUserByMail(mail);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -39,11 +39,11 @@ public class UserController<T> {
 
         //List<UserModel> users = new ArrayList<>();
 
-        if (UserPersistance.checkMailExist(user)) {
+        if (UserService.checkMailExist(user)) {
             return new ResponseEntity<>(user, HttpStatus.IM_USED);
         }
         else {
-            UserPersistance.addNewUser(user);
+            UserService.addNewUser(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
     }
@@ -51,7 +51,7 @@ public class UserController<T> {
     @PostMapping ("/login")
     public HttpStatus checkLogin(@RequestBody UserModel user) {
 
-        if (UserPersistance.checkLogin(user)) {
+        if (UserService.checkLogin(user)) {
             return HttpStatus.OK;
         }
         return HttpStatus.UNAUTHORIZED;
@@ -63,7 +63,7 @@ public class UserController<T> {
 
         List<UserModel> users = new ArrayList<>();
 
-        users = UserPersistance.deleteUserByMail(mail);
+        users = UserService.deleteUserByMail(mail);
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -73,7 +73,7 @@ public class UserController<T> {
 
         List<UserModel> users = new ArrayList<>();
 
-        users = UserPersistance.deleteAllItem();
+        users = UserService.deleteAllItem();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

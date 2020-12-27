@@ -1,6 +1,4 @@
-package ch.zhaw.mas.sharingAppServer.serverSite;
-
-import lombok.Data;
+package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
 import java.io.Serializable;
 //@Data

@@ -1,6 +1,5 @@
-package ch.zhaw.mas.sharingAppServer.serverSite;
+package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class ItemController {
         List<ItemModel> items = new ArrayList<>();
 
         try {
-            items = ItemPersistance.getAllItems();
+            items = ItemService.getAllItems();
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<List<ItemModel>>(items, HttpStatus.NOT_FOUND);
@@ -39,7 +38,7 @@ public class ItemController {
         List<ItemModel> items = new ArrayList<>();
 
         try {
-            items = ItemPersistance.addNewItem(item);
+            items = ItemService.addNewItem(item);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -56,25 +55,20 @@ public class ItemController {
         List<ItemModel> items = new ArrayList<>();
 
         ItemModel item;
-        items = ItemPersistance.deleteItemById(id);
+        items = ItemService.deleteItemById(id);
 
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateItem(@PathVariable("id") int id,
-                                                 @RequestBody ItemModel item)
+    public ResponseEntity<Object> updateItem(@PathVariable("id") int id, @RequestBody ItemModel item)
     {
-        int id1 = id;
-        boolean isItemExist = ItemPersistance.isItemExist(id);
 
-        System.out.println("Boolean/isItemExist: " + isItemExist);
-        System.out.println("id1: " + id1);
-        System.out.println("id: " + id);
+        boolean isItemExist = ItemService.isItemExist(id);
 
         if (isItemExist)
         {
-            ItemPersistance.updateItem(id1, item);
+            ItemService.updateItem(id, item);
             return new ResponseEntity<>("Item is updated successsfully", HttpStatus.OK);
         }
         else

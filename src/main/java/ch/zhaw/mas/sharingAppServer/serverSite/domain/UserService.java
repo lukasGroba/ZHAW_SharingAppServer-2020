@@ -1,14 +1,14 @@
-package ch.zhaw.mas.sharingAppServer.serverSite;
+package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
-import ch.zhaw.mas.sharingAppServer.serverSite.domain.UserModel;
 import ch.zhaw.mas.sharingAppServer.serverSite.persistance.FilePersistance;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserPersistance implements Serializable {
+public class UserService implements Serializable {
 
+    //===> CRUD methods
     private static List<UserModel> users = new ArrayList<>();
 
     public static <users> List<UserModel> getAllUsers() {
@@ -60,24 +60,6 @@ public class UserPersistance implements Serializable {
         return users;
     }
 
-    public static boolean checkLogin(UserModel user) {
-
-        boolean checkLogin = false;
-
-            users = FilePersistance.getUsersFromFile();
-
-            System.out.println("Object has been deserialized checkLogin");
-
-            System.out.println(users.get(0).getPassword());
-            System.out.println(user.getPassword());
-            System.out.println(users.get(0).getMail());
-            System.out.println(user.getMail());
-            checkLogin = (users.get(0).getPassword().equals(user.getPassword())) && (users.get(0).getMail().equals(user.getMail()));
-
-        return checkLogin;
-
-    }
-
     public static UserModel getUserByMail(String mail) {
 
         UserModel user = null;
@@ -100,6 +82,37 @@ public class UserPersistance implements Serializable {
 
         user = null;
         return user;
+
+    }
+
+    public static List<UserModel> deleteAllItem() {
+
+        //users = getUsersFromFile();
+
+        users = new ArrayList<>();
+
+        FilePersistance.writeUsersToFile(users);
+
+        return users;
+
+    }
+
+    //===> support methods
+    public static boolean checkLogin(UserModel user) {
+
+        boolean checkLogin = false;
+
+        users = FilePersistance.getUsersFromFile();
+
+        System.out.println("Object has been deserialized checkLogin");
+
+        System.out.println(users.get(0).getPassword());
+        System.out.println(user.getPassword());
+        System.out.println(users.get(0).getMail());
+        System.out.println(user.getMail());
+        checkLogin = (users.get(0).getPassword().equals(user.getPassword())) && (users.get(0).getMail().equals(user.getMail()));
+
+        return checkLogin;
 
     }
 
@@ -129,71 +142,6 @@ public class UserPersistance implements Serializable {
         return userExist;
 
     }
-
-    public static List<UserModel> deleteAllItem() {
-
-        //users = getUsersFromFile();
-
-        users = new ArrayList<>();
-
-        FilePersistance.writeUsersToFile(users);
-
-        return users;
-
-    }
-
-    /* public static List<UserModel> getUsersFromFile(){
-
-        try
-        {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream("src/user.ser");
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            // Method for deserialization of object
-            users = (List<UserModel>) in.readObject();
-
-            in.close();
-            file.close();
-
-            System.out.println("Object has been deserialized getUsersFromFile");
-
-        }
-
-        catch(IOException | ClassNotFoundException ex)
-        {
-            System.out.println("IOException is caught");
-        }
-
-        return users;
-    }
-
-    public static List<UserModel> writeUsersToFile(List<UserModel> users){
-
-        try
-        {
-            //Saving of object in a file
-            FileOutputStream file = new FileOutputStream("src/user.ser");
-            ObjectOutputStream out = new ObjectOutputStream(file);
-
-            // Method for serialization of object
-            out.writeObject(users);
-
-            out.close();
-            file.close();
-
-            System.out.println("Object has been serialized");
-
-        }
-        catch(IOException ex)
-        {
-            System.out.println("IOException is caught");
-        }
-
-        return users;
-    }
-
-     */
 
 }
 

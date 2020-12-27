@@ -1,10 +1,10 @@
-package ch.zhaw.mas.sharingAppServer.firstTestProjectSetup.controller;
+package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("books")
-public class Test {
+public class TestController {
 
     @GetMapping("/test")
     public @ResponseBody
