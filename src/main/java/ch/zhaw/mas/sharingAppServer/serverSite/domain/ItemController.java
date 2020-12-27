@@ -3,6 +3,7 @@ package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,15 +13,16 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
 
-    private static Integer itemId = 0;
+    private Integer itemId = 0;
+    List<ItemModel> items = new ArrayList<>();
 
     @GetMapping
     public ResponseEntity<List<ItemModel>> getAllItems() throws IOException, ClassNotFoundException {
 
-        List<ItemModel> items = new ArrayList<>();
+        ItemService itemService = new ItemService();
 
         try {
-            items = ItemService.getAllItems();
+            items = itemService.getAllItems();
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<List<ItemModel>>(items, HttpStatus.NOT_FOUND);
@@ -33,42 +35,56 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<List<ItemModel>> addNewItem(@RequestBody ItemModel item) {
+    public ResponseEntity<Object> addNewItem(@RequestBody ItemModel item) {
 
-        List<ItemModel> items = new ArrayList<>();
+        ItemService itemService = new ItemService();
 
         try {
-            items = ItemService.addNewItem(item);
+            if (itemService.addItemCheckUserMailExist(item)){
+                items = itemService.addNewItem(item);
+                return new ResponseEntity<>("New item is created successfully with mail: " + item.getOwner().getMail(), HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>("No user with this mail exist", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+        } catch (NullPointerException n) {
+            n.printStackTrace();
+            return new ResponseEntity<>("Mail is empty", HttpStatus.FORBIDDEN);
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            return new ResponseEntity<>("Exception", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<>(items, HttpStatus.OK);
-        //Try/Catch: File not found Error -> Status senden
-        //Try/Catch: ...
 
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<List<ItemModel>> deleteItemById(@PathVariable int id) {
+    public ResponseEntity<Object> deleteItemById(@PathVariable int id) {
 
-        List<ItemModel> items = new ArrayList<>();
+        ItemService itemService = new ItemService();
 
-        ItemModel item;
-        items = ItemService.deleteItemById(id);
+        if (itemService.isItemExist(id)){
+            items = itemService.deleteItemById(id);
+            return new ResponseEntity<>("Successfully delete item with id: " + id , HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("Item id does not exist: " + id , HttpStatus.NOT_FOUND);
+        }
 
-        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateItem(@PathVariable("id") int id, @RequestBody ItemModel item)
     {
 
-        boolean isItemExist = ItemService.isItemExist(id);
+        ItemService itemService = new ItemService();
+
+        boolean isItemExist = itemService.isItemExist(id);
 
         if (isItemExist)
         {
-            ItemService.updateItem(id, item);
+            itemService.updateItem(id, item);
             return new ResponseEntity<>("Item is updated successsfully", HttpStatus.OK);
         }
         else

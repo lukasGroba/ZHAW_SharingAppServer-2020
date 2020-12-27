@@ -6,51 +6,37 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemService implements Serializable {
+public class ItemService implements Serializable, ItemInterface {
+
+    private List<ItemModel> items = new ArrayList<>();
+    FilePersistance filePersistance = new FilePersistance();
 
     //===> CRUD methods
-    private static List<ItemModel> items = new ArrayList<>();
+    public List<ItemModel> getAllItems() throws IOException, ClassNotFoundException {
 
-    public static <items> List<ItemModel> getAllItems() throws IOException, ClassNotFoundException {
-
-        items = FilePersistance.getItemsFromFile();
+        items = filePersistance.getItemsFromFile();
 
         return items;
 
     }
+    public List<ItemModel> addNewItem(ItemModel item) throws IOException, ClassNotFoundException {
 
-    public static List<ItemModel> addNewItem(ItemModel item) throws IOException, ClassNotFoundException {
-
-        items = FilePersistance.getItemsFromFile();
+        items = filePersistance.getItemsFromFile();
 
         item.setHighestId(getHighestId()+1);
 
-        String mail = item.getMailFromOwner(item);
-
-        List<UserModel> users = new ArrayList<>();
-
-        users = FilePersistance.getUsersFromFile();
-
-        System.out.println("Object has been deserialized addNewUser");
-
-        for (int i = 0; i < users.size(); i++) {
-            UserModel user  = users.get(i);
-            if (users.get(i).getMail().equals(mail)) {
-                items.add(new ItemModel(item));
-            }
-        }
+        items.add(new ItemModel(item));
 
         FilePersistance.writeItemsToFile(items);
 
         return items;
 
     }
-
-    public static List<ItemModel> deleteItemById(int id) {
+    public List<ItemModel> deleteItemById(int id) {
 
         ItemModel item;
 
-        items = FilePersistance.getItemsFromFile();
+        items = filePersistance.getItemsFromFile();
 
         for (int i = 0; i < items.size(); i++) {
             System.out.println(items.get(i));
@@ -64,10 +50,9 @@ public class ItemService implements Serializable {
 
         return items;
     }
+    public List<ItemModel> updateItem(int id, ItemModel itemUpdate) {
 
-    public static List<ItemModel> updateItem(int id, ItemModel itemUpdate) {
-
-        items = FilePersistance.getItemsFromFile();
+        items = filePersistance.getItemsFromFile();
         System.out.println("Received id: " + id);
 
         for (int i = 0; i < items.size(); i++) {
@@ -89,11 +74,25 @@ public class ItemService implements Serializable {
     }
 
     //===> support methods
-    public static boolean isItemExist(int id) {
+    public int getHighestId() {
+
+        int id = 0;
+
+        items = filePersistance.getItemsFromFile();
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() > id) {
+                id = items.get(i).getId();
+            };
+        }
+
+        return id;
+    }
+    public boolean isItemExist(int id) {
 
         ItemModel item = new ItemModel();
 
-        items = FilePersistance.getItemsFromFile ();
+        items = filePersistance.getItemsFromFile ();
 
         for (int i = 0; i < items.size(); i++) {
             item  = items.get(i);
@@ -106,20 +105,23 @@ public class ItemService implements Serializable {
         return false;
 
     }
+    public boolean addItemCheckUserMailExist(ItemModel item) throws NullPointerException {
 
-    public static int getHighestId() {
+        //try {
+            String mail = item.getMailFromOwner(item);
+            List<UserModel> users = new ArrayList<>();
+            users = filePersistance.getUsersFromFile();
+            System.out.println("Object has been deserialized AddItemCheckUserMailExist");
 
-        int id = 0;
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getMail().equals(mail)) {
+                    return true;
+                }
 
-        items = FilePersistance.getItemsFromFile();
+            }
+        //} catch (Exception e) {System.out.println(e);}
 
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId() > id) {
-                id = items.get(i).getId();
-            };
-        }
-
-        return id;
+        return false;
     }
 
 }

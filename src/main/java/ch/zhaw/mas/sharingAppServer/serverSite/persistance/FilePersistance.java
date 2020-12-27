@@ -9,10 +9,10 @@ import java.util.List;
 
 public class FilePersistance {
 
-    private static List<ItemModel> items = new ArrayList<>();
-    private static List<UserModel> users = new ArrayList<>();
+    private List<ItemModel> items = new ArrayList<>();
+    private List<UserModel> users = new ArrayList<>();
 
-    public static List<ItemModel> getItemsFromFile(){
+    public List<ItemModel> getItemsFromFile(){
 
         try
         {
@@ -39,7 +39,7 @@ public class FilePersistance {
 
     }
 
-    public static void writeItemsToFile (List<ItemModel> items){
+    public static void writeItemsToFile(List<ItemModel> items){
 
         try
         {
@@ -63,7 +63,7 @@ public class FilePersistance {
 
     }
 
-    public static List<UserModel> getUsersFromFile(){
+    public List<UserModel> getUsersFromFile(){
 
         try
         {
@@ -89,7 +89,7 @@ public class FilePersistance {
         return users;
     }
 
-    public static void writeUsersToFile(List<UserModel> users){
+    public void writeUsersToFile(List<UserModel> users){
 
         try
         {

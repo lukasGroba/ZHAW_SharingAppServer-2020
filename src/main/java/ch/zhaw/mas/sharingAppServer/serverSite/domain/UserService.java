@@ -6,42 +6,43 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserService implements Serializable {
+public class UserService implements Serializable, UserInterface {
+
+    private List<UserModel> users = new ArrayList<>();
+    FilePersistance filePersistance = new FilePersistance();
 
     //===> CRUD methods
-    private static List<UserModel> users = new ArrayList<>();
+    public List<UserModel> getAllUsers() {
 
-    public static <users> List<UserModel> getAllUsers() {
-
-        users = FilePersistance.getUsersFromFile();
+        users = filePersistance.getUsersFromFile();
 
         System.out.println("Object has been deserialized getAllUsers");
 
         return users;
 
     }
+    public List<UserModel> addNewUser(UserModel user) {
 
-    public static List<UserModel> addNewUser(UserModel user) {
+        FilePersistance filePersistance = new FilePersistance();
 
-        users = FilePersistance.getUsersFromFile();
+        users = filePersistance.getUsersFromFile();
 
         System.out.println("Object has been deserialized addNewUser");
 
         users.add(user);
 
-        FilePersistance.writeUsersToFile(users);
+        filePersistance.writeUsersToFile(users);
 
         System.out.println("Object has been serialized writeUserToFile");
 
         return users;
 
     }
-
-    public static List<UserModel> deleteUserByMail(String mail) {
+    public List<UserModel> deleteUserByMail(String mail) {
 
         UserModel user;
 
-        users = FilePersistance.getUsersFromFile();
+        users = filePersistance.getUsersFromFile();
 
         System.out.println("Object has been deserialized deleteUserByMail");
 
@@ -53,25 +54,19 @@ public class UserService implements Serializable {
             }
         }
 
-        FilePersistance.writeUsersToFile(users);
+        filePersistance.writeUsersToFile(users);
 
         System.out.println("Object has been serialized deleteUserByMail");
 
         return users;
     }
-
-    public static UserModel getUserByMail(String mail) {
+    public UserModel getUserByMail(String mail) {
 
         UserModel user = null;
 
-        users = FilePersistance.getUsersFromFile();
+        users = filePersistance.getUsersFromFile();
 
         System.out.println("Object has been deserialized getUserByMail");
-
-        System.out.println(users.get(0).getMail());
-        System.out.println(mail);
-        boolean f = (users.get(0).getMail().equals(mail));
-        System.out.println(f);
 
         for (int i = 0; i < users.size(); i++) {
             user  = users.get(i);
@@ -80,30 +75,27 @@ public class UserService implements Serializable {
             }
         }
 
-        user = null;
-        return user;
+        return user = null;
 
     }
+    public List<UserModel> deleteAllItem() {
 
-    public static List<UserModel> deleteAllItem() {
-
-        //users = getUsersFromFile();
+        FilePersistance filePersistance = new FilePersistance();
 
         users = new ArrayList<>();
 
-        FilePersistance.writeUsersToFile(users);
+        filePersistance.writeUsersToFile(users);
 
         return users;
 
     }
 
     //===> support methods
-    public static boolean checkLogin(UserModel user) {
+    public boolean checkLogin(UserModel user) {
 
         boolean checkLogin = false;
 
-        users = FilePersistance.getUsersFromFile();
-
+        users = filePersistance.getUsersFromFile();
         System.out.println("Object has been deserialized checkLogin");
 
         System.out.println(users.get(0).getPassword());
@@ -112,34 +104,51 @@ public class UserService implements Serializable {
         System.out.println(user.getMail());
         checkLogin = (users.get(0).getPassword().equals(user.getPassword())) && (users.get(0).getMail().equals(user.getMail()));
 
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getPassword().equals(user.getPassword())) {
+                return true;
+            }
+        }
+
         return checkLogin;
 
     }
+    public boolean checkMailAllreadyInUse(UserModel user) {
 
-    public static boolean checkMailExist(UserModel user) {
-
-        boolean userExist = false;
-
-        users = FilePersistance.getUsersFromFile();
+        users = filePersistance.getUsersFromFile();
 
         System.out.println("Object has been deserialized checkMailExist");
 
         if (!users.isEmpty()) {
-            //System.out.println(users.get(0).getMail());
-            //System.out.println(user.getMail());
-            //System.out.println(users.size());
-            //boolean statusUserExist = users.get(0).getMail().equals(user.getMail());
-            //System.out.println(statusUserExist);
 
             for (int i = 0; i < users.size(); i++) {
                 if (users.get(i).getMail().equals(user.getMail())) {
-                    userExist = true;
+                    return true;
                 }
             }
 
         }
 
-        return userExist;
+        return false;
+
+    }
+    public boolean checkMailAllreadyInUse(String mail) {
+
+        users = filePersistance.getUsersFromFile();
+
+        System.out.println("Object has been deserialized checkMailExist(byMail)");
+
+        if (!users.isEmpty()) {
+
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getMail().equals(mail)) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
 
     }
 
