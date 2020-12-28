@@ -1,5 +1,7 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -10,6 +12,8 @@ import java.util.Date;
 public class ItemModel implements Serializable {
 
     private int id;
+    @NotBlank
+    @Size(min = 1, max = 20)
     private String name;
     private LocalDate dateCreated;
     private String description;
