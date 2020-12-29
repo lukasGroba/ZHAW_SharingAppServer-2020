@@ -17,7 +17,6 @@ public class SharingAppServerApplication {
 		SpringApplication.run(SharingAppServerApplication.class, args);
 	}
 
-
 	@Bean
 	public Docket userApi() {
 		return new Docket(DocumentationType.SWAGGER_2)

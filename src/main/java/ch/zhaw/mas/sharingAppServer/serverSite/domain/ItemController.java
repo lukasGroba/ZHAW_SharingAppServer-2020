@@ -102,7 +102,7 @@ public class ItemController {
         if (isItemExist)
         {
             itemService.updateItem(id, item);
-            return new ResponseEntity<>("Item is updated successsfully", HttpStatus.OK);
+            return new ResponseEntity<>(item, HttpStatus.OK);
         }
         else
         {
