@@ -14,7 +14,9 @@ public class UserController {
     private Integer userId = 0;
     private boolean LoginOK;
 
-    UserService userService = new UserService();
+    //@Autowired
+    private UserInterface userService;
+    //UserService userService = new UserService();
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getUsers() {
@@ -22,7 +24,6 @@ public class UserController {
         List<UserModel> users = new ArrayList<>();
 
         users = userService.getAllUsers();
-
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
@@ -74,12 +75,12 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @DeleteMapping ("/deleteAll")
-    public ResponseEntity<List<UserModel>> deleteAllItems() {
+    @DeleteMapping ("/deleteAllUser")
+    public ResponseEntity<List<UserModel>> deleteAllUser() {
 
         List<UserModel> users = new ArrayList<>();
 
-        users = userService.deleteAllItem();
+        users = userService.deleteAllUser();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

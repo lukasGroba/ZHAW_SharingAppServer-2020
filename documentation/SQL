@@ -25,3 +25,22 @@ FROM PUBLIC.USER t
 ORDER BY ID DESC
 LIMIT 501
 
+=== Create UserModel table
+CREATE TABLE UserModel (
+    mail VARCHAR(255) NOT NULL,
+    username VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY ( mail )
+);
+
+=== Insert user in UserModel table ===
+
+INSERT INTO PUBLIC.USERMODEL (MAIL, USERNAME, PASSWORD) VALUES ('test.db@bluewin.ch', 'Test DB', 'Hope')
+
+=== Select all from UserModel table ===
+
+SELECT t.*
+FROM PUBLIC.USERMODEL t
+ORDER BY ID DESC
+LIMIT 501
+

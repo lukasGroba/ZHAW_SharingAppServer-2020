@@ -1,12 +1,18 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
+//import javax.persistence.Entity;
+//import javax.persistence.Id;
+//import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+
 import java.io.Serializable;
 //@Data
-//@Entity
 
+//@Entity //Map Entity UserModel to table UserModel
 public class UserModel implements Serializable {
 
     private String username;
+    @Id
     private String mail;
     private String password;
 
@@ -16,13 +22,13 @@ public class UserModel implements Serializable {
     public UserModel(UserModel user) {
         this.username = user.username;
         this.mail = user.mail; //also ID
-        this.password = user.password; //password
+        this.password = user.password;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "User[id=%d, firstName='%s', lastName='%s']", username);
+                "User[username=%s, mail='%s', password='%s']", username, mail, password);
     }
 
     public String getUsername() {

@@ -10,7 +10,7 @@ public interface UserInterface {
     public abstract List<UserModel> addNewUser(UserModel user);
     public abstract List<UserModel> deleteUserByMail(String mail);
     public abstract UserModel getUserByMail(String mail);
-    public abstract List<UserModel> deleteAllItem();
+    public abstract List<UserModel> deleteAllUser();
 
     //===> support methods
     public abstract boolean checkLogin(UserModel user);

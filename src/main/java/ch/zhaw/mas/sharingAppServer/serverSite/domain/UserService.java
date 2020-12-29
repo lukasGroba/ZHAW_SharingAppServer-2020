@@ -1,24 +1,66 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
+//import ch.zhaw.mas.sharingAppServer.serverSite.persistance.DbPersistance;
 import ch.zhaw.mas.sharingAppServer.serverSite.persistance.FilePersistance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserService implements Serializable, UserInterface {
 
     private List<UserModel> users = new ArrayList<>();
     FilePersistance filePersistance = new FilePersistance();
 
+    @Autowired
+    private JdbcTemplate jtm;
+
     //===> CRUD methods
+   @Override
     public List<UserModel> getAllUsers() {
+
+        //With file persistance:
+        //*
+            users = filePersistance.getUsersFromFile();
+            System.out.println("Object has been deserialized getAllUsers");
+            return users;
+        //*/
+
+
+        //Direct DB integration:
+        /*
+            users = DbPersistance.getUsersFromDb();
+        */
+
+        //With JdbcTemplate
+        /*
+            String sql = "SELECT * FROM USERMODEL";
+            return jtm.query(sql, new BeanPropertyRowMapper<>(UserModel.class));
+
+        */
+
+    }
+    public UserModel getUserByMail(String mail) {
+
+        UserModel user = null;
 
         users = filePersistance.getUsersFromFile();
 
-        System.out.println("Object has been deserialized getAllUsers");
+        System.out.println("Object has been deserialized getUserByMail");
 
-        return users;
+        for (int i = 0; i < users.size(); i++) {
+            user  = users.get(i);
+            if (users.get(i).getMail().equals(mail)) {
+                return user;
+            }
+        }
+
+        return user = null;
 
     }
     public List<UserModel> addNewUser(UserModel user) {
@@ -60,25 +102,7 @@ public class UserService implements Serializable, UserInterface {
 
         return users;
     }
-    public UserModel getUserByMail(String mail) {
-
-        UserModel user = null;
-
-        users = filePersistance.getUsersFromFile();
-
-        System.out.println("Object has been deserialized getUserByMail");
-
-        for (int i = 0; i < users.size(); i++) {
-            user  = users.get(i);
-            if (users.get(i).getMail().equals(mail)) {
-                return user;
-            }
-        }
-
-        return user = null;
-
-    }
-    public List<UserModel> deleteAllItem() {
+    public List<UserModel> deleteAllUser() {
 
         FilePersistance filePersistance = new FilePersistance();
 
@@ -91,6 +115,25 @@ public class UserService implements Serializable, UserInterface {
     }
 
     //===> support methods
+    public boolean checkMailAllreadyInUse(String mail) {
+
+        users = filePersistance.getUsersFromFile();
+
+        System.out.println("Object has been deserialized checkMailExist(byMail)");
+
+        if (!users.isEmpty()) {
+
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getMail().equals(mail)) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+
+    }
     public boolean checkLogin(UserModel user) {
 
         boolean checkLogin = false;
@@ -123,25 +166,6 @@ public class UserService implements Serializable, UserInterface {
 
             for (int i = 0; i < users.size(); i++) {
                 if (users.get(i).getMail().equals(user.getMail())) {
-                    return true;
-                }
-            }
-
-        }
-
-        return false;
-
-    }
-    public boolean checkMailAllreadyInUse(String mail) {
-
-        users = filePersistance.getUsersFromFile();
-
-        System.out.println("Object has been deserialized checkMailExist(byMail)");
-
-        if (!users.isEmpty()) {
-
-            for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).getMail().equals(mail)) {
                     return true;
                 }
             }
