@@ -25,20 +25,8 @@ public class UserService implements Serializable, UserInterface {
     public List<UserModel> getAllUsers() {
 
         //With file persistance:
-        /*
             users = filePersistance.getUsersFromFile();
             System.out.println("Object has been deserialized getAllUsers");
-            return users;
-        */
-        //Direct DB integration:
-        /*
-            users = DbPersistance.getUsersFromDb();
-        */
-
-        //With JdbcTemplate
-
-            String sql = "SELECT * FROM USERMODEL";
-            users = jtm.query(sql, new BeanPropertyRowMapper<>(UserModel.class));
             return users;
 
     }
@@ -46,9 +34,9 @@ public class UserService implements Serializable, UserInterface {
 
         UserModel user = null;
 
-        //With file persistance
-        /*
+        //With file persistance:
         users = filePersistance.getUsersFromFile();
+
         System.out.println("Object has been deserialized getUserByMail");
         for (int i = 0; i < users.size(); i++) {
             user  = users.get(i);
@@ -57,21 +45,6 @@ public class UserService implements Serializable, UserInterface {
             }
         }
         return user = null;
-        */
-
-        //With JdbcTemplate
-
-            String sql = "SELECT * FROM USERMODEL";
-            users = jtm.query(sql, new BeanPropertyRowMapper<>(UserModel.class));
-
-            for (int i = 0; i < users.size(); i++) {
-                user  = users.get(i);
-                if (users.get(i).getMail().equals(mail)) {
-                    return user;
-                }
-            }
-
-            return user = null;
 
     }
     public List<UserModel> addNewUser(UserModel user) {
