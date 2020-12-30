@@ -1,5 +1,6 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class UserController {
     private Integer userId = 0;
     private boolean LoginOK;
 
-    //@Autowired
+    @Autowired
     private UserInterface userService;
     //UserService userService = new UserService();
 
