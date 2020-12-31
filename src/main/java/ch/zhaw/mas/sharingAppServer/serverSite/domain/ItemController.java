@@ -76,8 +76,8 @@ public class ItemController {
 
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteItemById(@PathVariable int id) {
+    @DeleteMapping
+    public ResponseEntity<Object> deleteItemById(@RequestParam("id") int id) {
 
         ItemService itemService = new ItemService();
 
@@ -91,8 +91,8 @@ public class ItemController {
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateItem(@PathVariable("id") int id, @RequestBody ItemModel item)
+    @PutMapping
+    public ResponseEntity<Object> updateItem(@RequestParam("id") int id, @RequestBody ItemModel item)
     {
 
         ItemService itemService = new ItemService();
