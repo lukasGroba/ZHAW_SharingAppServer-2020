@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping ("/user")
-    public ResponseEntity<Object> getUserByMail(@RequestParam (value = "user") String mail) {
+    public ResponseEntity<Object> getUserByMail(@RequestParam (value = "mail") String mail) {
 
         if (userService.checkMailAllreadyInUse(mail)){
             UserModel user = userService.getUserByMail(mail);
@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<List<UserModel>> deleteUserByMail(@RequestParam(value = "user") String mail) {
+    public ResponseEntity<List<UserModel>> deleteUserByMail(@RequestParam(value = "mail") String mail) {
 
         List<UserModel> users = new ArrayList<>();
 
