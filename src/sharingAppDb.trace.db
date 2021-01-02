@@ -1732,3 +1732,7 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/tzhfi
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 35 more
+2021-01-02 10:53:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "USER_MODEL_DB" nicht gefunden
+Table "USER_MODEL_DB" not found; SQL statement:
+select usermodeld0_.mail as mail1_0_, usermodeld0_.password as password2_0_, usermodeld0_.username as username3_0_ from user_model_db usermodeld0_ [42102-200]

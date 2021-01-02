@@ -1,15 +1,18 @@
-package ch.zhaw.mas.sharingAppServer.serverSite.domain;
+package ch.zhaw.mas.sharingAppServer.serverSite.dbImplementation;
 
-//import javax.persistence.Entity;
 //import javax.persistence.Id;
 //import javax.persistence.Table;
-import org.springframework.data.annotation.Id;
+//import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 //@Data
 
-//@Entity //Map Entity UserModel to table UserModel
-public class UserModelDb implements Serializable {
+@Entity //Map Entity UserModel to table UserModel
+@Table (name = "USERMODEL")
+public class UserModelDb {
 
     private String username;
     @Id
