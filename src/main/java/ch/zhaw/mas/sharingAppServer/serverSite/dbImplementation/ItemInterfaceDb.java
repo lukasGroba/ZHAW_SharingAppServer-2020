@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItemInterfaceDb extends JpaRepository<ItemModelDb, String> {
+public interface ItemInterfaceDb extends JpaRepository<ItemModelDb, Integer> { //Integer because ID is Integer
 
 }

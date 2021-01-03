@@ -33,6 +33,13 @@ CREATE TABLE UserModel (
     PRIMARY KEY ( mail )
 );
 
+CREATE TABLE Item (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    mail VARCHAR(255) NOT NULL,
+    FOREIGN KEY (mail) REFERENCES UserModel (mail)
+);
+
 === Insert user in UserModel table ===
 
 INSERT INTO PUBLIC.USERMODEL (MAIL, USERNAME, PASSWORD) VALUES ('test.db@bluewin.ch', 'Test DB', 'Hope')

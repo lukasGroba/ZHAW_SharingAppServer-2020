@@ -1,6 +1,8 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.dbImplementation;
 
+import ch.zhaw.mas.sharingAppServer.serverSite.domain.ItemModel;
 import ch.zhaw.mas.sharingAppServer.serverSite.domain.ItemModelDb;
+import ch.zhaw.mas.sharingAppServer.serverSite.domain.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,13 +14,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import javax.validation.Valid;
 import java.awt.print.Book;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/itemsDb")
 public class ItemControllerDb {
 
     @Autowired
@@ -26,13 +29,14 @@ public class ItemControllerDb {
 
     //private Integer itemId = 0;
     List<ItemModelDb> items = new ArrayList<>();
+    ItemModelDb item = new ItemModelDb();
 
     @Operation(summary = "Get all items")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK: Found items", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ItemModelDb.class)) }),
             @ApiResponse(responseCode = "404", description = "NOT FOUND: No items found", content = @Content) })
     @GetMapping
-    public ResponseEntity<List<ItemModelDb>> getAllItems() throws IOException, ClassNotFoundException {
+    public ResponseEntity<List<ItemModelDb>> getAllItemsFromDb(){
 
         //ItemService itemService = new ItemService();
         /*
@@ -124,6 +128,37 @@ public class ItemControllerDb {
     }
 
      */
+
+    @PostMapping
+    public ResponseEntity<Object> addNewItemToDb(@RequestBody ItemModelDb item) {
+
+        itemInterfaceDb.save(item);
+        return new ResponseEntity<>("New Item is created successfully with mail: " + item.getMailFromOwner(item), HttpStatus.CREATED);
+
+        /*
+
+        try {
+            if (itemService.addItemCheckUserMailExist(item)){
+                items = itemService.addNewItem(item);
+                return new ResponseEntity<>("New item is created successfully with mail: " + item.getOwner().getMail(), HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>("No user with this mail exist", HttpStatus.NOT_ACCEPTABLE);
+            }
+
+        }
+        catch (NullPointerException n) {
+            n.printStackTrace();
+            return new ResponseEntity<>("Mail is empty", HttpStatus.FORBIDDEN);
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Exception", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+         */
+
+    }
 
 }
 

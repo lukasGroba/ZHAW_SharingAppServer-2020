@@ -16,18 +16,17 @@ import java.util.Date;
 public class ItemModelDb {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //@GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private String name;
-    private LocalDate dateCreated;
-    private String description;
-    private boolean isLent;
-    private Double rating;
-    @ManyToOne
+    //private LocalDate dateCreated;
+    //private String description;
+    //private boolean isLent;
+    //private Double rating;
+    @ManyToOne(cascade = CascadeType.ALL)
     private UserModelDb owner;
-    //private String mail;
-    private LocalDate lentFrom;
-    private LocalDate rentTill;
+    //private LocalDate lentFrom;
+    //private LocalDate rentTill;
 
     public ItemModelDb() {
     }
@@ -36,29 +35,26 @@ public class ItemModelDb {
 
         int id; //number
         String name;
-        Date dateCreated;
-        String description;
-        boolean isLent;
-        Double rating;
+        //Date dateCreated;
+        //String description;
+        //boolean isLent;
+        //Double rating;
         UserModel owner;
-        //String mail;
-        LocalDate lentFrom;
-        LocalDate rentTill;
+        //LocalDate lentFrom;
+        //LocalDate rentTill;
 
         this.id = item.id;
         this.name = item.name;
-        this.dateCreated = LocalDate.now();
-        this.description = item.description;
-        this.isLent = item.isLent;
-        this.rating = item.rating;
+        //this.dateCreated = LocalDate.now();
+        //this.description = item.description;
+        //this.isLent = item.isLent;
+        //this.rating = item.rating;
         this.owner = item.owner;
-        //this.mail = item.mail;
-        this.lentFrom = item.lentFrom;
-        this.rentTill = item.rentTill;
+        //this.lentFrom = item.lentFrom;
+        //this.rentTill = item.rentTill;
 
     }
 
-    @Id
     public int getId() {
         return id;
     }
@@ -67,7 +63,7 @@ public class ItemModelDb {
         return name;
     }
 
-    public LocalDate getDateCreated() {
+    /*public LocalDate getDateCreated() {
         return dateCreated;
     }
 
@@ -87,16 +83,13 @@ public class ItemModelDb {
         return rating;
     }
 
+     */
+
     public UserModelDb getOwner() {
         return owner;
     }
 
     /*
-    public String getMail() {
-        return mail;
-    }
-    */
-
     public LocalDate getLentFrom() {
         return lentFrom;
     }
@@ -105,19 +98,23 @@ public class ItemModelDb {
         return rentTill;
     }
 
+     */
+
     public void setHighestId(int highestId) {
         this.id = highestId;
     }
 
-    public String getMailFromOwner(ItemModel item){
-        UserModel user = item.getOwner();
+    public String getMailFromOwner(ItemModelDb item){
+        UserModelDb user = item.getOwner();
         String mailFromOwner = user.getMail();
         return mailFromOwner;
     }
-
+/*
     public void setDescription(String description) {
         this.description = description;
     }
+
+ */
 
     public void setName(String name) {
         this.name = name;
