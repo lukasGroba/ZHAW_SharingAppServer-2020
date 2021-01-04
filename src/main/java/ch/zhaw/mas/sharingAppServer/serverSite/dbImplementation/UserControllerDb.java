@@ -18,6 +18,13 @@ public class UserControllerDb {
     //===> JPA
     @Autowired
     private UserInterfaceDb userInterfaceDb;
+
+    @Autowired
+    private ItemInterfaceDb itemInterfaceDb;
+
+    @Autowired
+    private ItemControllerDb itemControllerDb;
+
     List<UserModelDb> users = new ArrayList<>();
 
     @GetMapping
@@ -46,6 +53,7 @@ public class UserControllerDb {
     public ResponseEntity<Object> deleteUserByMail(@RequestParam(value = "mail") String mail) {
 
         if (userInterfaceDb.existsById(mail)){
+            itemControllerDb.deleteItemByMailFromDb(mail);
             userInterfaceDb.deleteById(mail);
             return new ResponseEntity<>("User with mail: " + mail + " DELETED", HttpStatus.OK);
         }

@@ -27,6 +27,9 @@ public class ItemControllerDb {
     @Autowired
     private ItemInterfaceDb itemInterfaceDb;
 
+    @Autowired
+    private UserInterfaceDb userInterfaceDb;
+
     //private Integer itemId = 0;
     List<ItemModelDb> items = new ArrayList<>();
     ItemModelDb item = new ItemModelDb();
@@ -159,6 +162,15 @@ public class ItemControllerDb {
          */
 
     }
+
+    @DeleteMapping
+    public ResponseEntity<Object> deleteItemByMailFromDb(@RequestParam(value = "mail") String mail) {
+
+        items = itemInterfaceDb.findItemModelDbByOwner_Mail(mail);
+        itemInterfaceDb.deleteInBatch(items);
+
+        return new ResponseEntity<>("All Item with mail: " + mail + "DELETED", HttpStatus.OK);
+     }
 
 }
 
