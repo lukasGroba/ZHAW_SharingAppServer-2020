@@ -43,9 +43,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addUser(@RequestBody UserModel user) {
+    public ResponseEntity<Object> addUser(@RequestBody UserModelWithPassword user) {
 
-        if (user.getPassword() == null || user.getUsername() == null || user.getMail() == null ) {
+        if (user.getPassword()== null || user.getUsername() == null || user.getMail() == null ) {
             return new ResponseEntity<>("Data in request are missing", HttpStatus.BAD_REQUEST);
         }
         else if (userService.checkMailAllreadyInUse(user)) {
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PostMapping ("/login")
-    public ResponseEntity<Object> checkLogin(@RequestBody UserModel user) {
+    public ResponseEntity<Object> checkLogin(@RequestBody UserModelWithPassword user) {
 
         if (userService.checkLogin(user)) {
             return new ResponseEntity<>("Login check successful", HttpStatus.ACCEPTED);
@@ -67,9 +67,9 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<List<UserModel>> deleteUserByMail(@RequestParam(value = "mail") String mail) {
+    public ResponseEntity<List<UserModelWithPassword>> deleteUserByMail(@RequestParam(value = "mail") String mail) {
 
-        List<UserModel> users = new ArrayList<>();
+        List<UserModelWithPassword> users = new ArrayList<>();
 
         users = userService.deleteUserByMail(mail);
 
@@ -77,9 +77,9 @@ public class UserController {
     }
 
     @DeleteMapping ("/deleteAllUser")
-    public ResponseEntity<List<UserModel>> deleteAllUser() {
+    public ResponseEntity<List<UserModelWithPassword>> deleteAllUser() {
 
-        List<UserModel> users = new ArrayList<>();
+        List<UserModelWithPassword> users = new ArrayList<>();
 
         users = userService.deleteAllUser();
 

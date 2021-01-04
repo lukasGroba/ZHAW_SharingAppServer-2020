@@ -109,7 +109,7 @@ public class ItemService implements Serializable, ItemInterface {
 
         //try {
             String mail = item.getMailFromOwner(item);
-            List<UserModel> users = new ArrayList<>();
+            List<UserModelWithPassword> users = new ArrayList<>();
             users = filePersistance.getUsersFromFile();
             System.out.println("Object has been deserialized AddItemCheckUserMailExist");
 

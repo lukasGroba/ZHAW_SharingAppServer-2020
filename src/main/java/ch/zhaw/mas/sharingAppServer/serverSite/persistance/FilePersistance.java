@@ -2,6 +2,7 @@ package ch.zhaw.mas.sharingAppServer.serverSite.persistance;
 
 import ch.zhaw.mas.sharingAppServer.serverSite.domain.ItemModel;
 import ch.zhaw.mas.sharingAppServer.serverSite.domain.UserModel;
+import ch.zhaw.mas.sharingAppServer.serverSite.domain.UserModelWithPassword;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ import java.util.List;
 public class FilePersistance {
 
     private List<ItemModel> items = new ArrayList<>();
-    private List<UserModel> users = new ArrayList<>();
+    private List<UserModelWithPassword> users = new ArrayList<>();
+    //private List<UserModel> users = new ArrayList<>();
 
     public List<ItemModel> getItemsFromFile(){
 
@@ -63,7 +65,7 @@ public class FilePersistance {
 
     }
 
-    public List<UserModel> getUsersFromFile(){
+    public List<UserModelWithPassword> getUsersFromFile(){
 
         try
         {
@@ -72,7 +74,7 @@ public class FilePersistance {
             ObjectInputStream in = new ObjectInputStream(file);
 
             // Method for deserialization of object
-            users = (List<UserModel>) in.readObject();
+            users = (List<UserModelWithPassword>) in.readObject();
 
             in.close();
             file.close();
@@ -89,7 +91,7 @@ public class FilePersistance {
         return users;
     }
 
-    public void writeUsersToFile(List<UserModel> users){
+    public void writeUsersToFile(List<UserModelWithPassword> users){
 
         try
         {

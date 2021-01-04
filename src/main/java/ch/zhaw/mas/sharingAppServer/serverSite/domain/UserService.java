@@ -14,7 +14,8 @@ import java.util.List;
 @Service
 public class UserService implements Serializable, UserInterface {
 
-    private List<UserModel> users = new ArrayList<>();
+    private List<UserModelWithPassword> users = new ArrayList<>();
+    private List<UserModel> usersWithoutPassword = new ArrayList<>();
     FilePersistance filePersistance = new FilePersistance();
 
     @Autowired
@@ -24,15 +25,31 @@ public class UserService implements Serializable, UserInterface {
    @Override
     public List<UserModel> getAllUsers() {
 
-        //With file persistance:
-            users = filePersistance.getUsersFromFile();
-            System.out.println("Object has been deserialized getAllUsers");
-            return users;
+
+       List<UserModel> usersWithoutPassword = new ArrayList<>();
+       UserModel userWithoutPassword = new UserModel();
+
+       users = filePersistance.getUsersFromFile();
+       System.out.println("Object has been deserialized getAllUsers");
+
+       if (!users.isEmpty()) {
+           for (int i = 0; i < users.size(); i++) {
+
+               userWithoutPassword.setMail(users.get(i).getMail());
+               userWithoutPassword.setUsername(users.get(i).getUsername());
+               usersWithoutPassword.add(i, userWithoutPassword);
+
+           }
+
+           return usersWithoutPassword;
+       }
+
+       return usersWithoutPassword;
 
     }
-    public UserModel getUserByMail(String mail) {
+    public UserModelWithPassword getUserByMail(String mail) {
 
-        UserModel user = null;
+        UserModelWithPassword user = null;
 
         //With file persistance:
         users = filePersistance.getUsersFromFile();
@@ -47,7 +64,7 @@ public class UserService implements Serializable, UserInterface {
         return user = null;
 
     }
-    public List<UserModel> addNewUser(UserModel user) {
+    public List<UserModelWithPassword> addNewUser(UserModelWithPassword user) {
 
         FilePersistance filePersistance = new FilePersistance();
 
@@ -64,7 +81,7 @@ public class UserService implements Serializable, UserInterface {
         return users;
 
     }
-    public List<UserModel> deleteUserByMail(String mail) {
+    public List<UserModelWithPassword> deleteUserByMail(String mail) {
 
         UserModel user;
 
@@ -86,7 +103,7 @@ public class UserService implements Serializable, UserInterface {
 
         return users;
     }
-    public List<UserModel> deleteAllUser() {
+    public List<UserModelWithPassword> deleteAllUser() {
 
         FilePersistance filePersistance = new FilePersistance();
 
@@ -118,18 +135,18 @@ public class UserService implements Serializable, UserInterface {
         return false;
 
     }
-    public boolean checkLogin(UserModel user) {
+    public boolean checkLogin(UserModelWithPassword user) {
 
         boolean checkLogin = false;
 
         users = filePersistance.getUsersFromFile();
         System.out.println("Object has been deserialized checkLogin");
 
-        System.out.println(users.get(0).getPassword());
-        System.out.println(user.getPassword());
-        System.out.println(users.get(0).getMail());
-        System.out.println(user.getMail());
-        checkLogin = (users.get(0).getPassword().equals(user.getPassword())) && (users.get(0).getMail().equals(user.getMail()));
+        //System.out.println(users.get(0).getPassword());
+        //System.out.println(user.getPassword());
+        //System.out.println(users.get(0).getMail());
+        //System.out.println(user.getMail());
+        //checkLogin = (users.get(0).getPassword().equals(user.getPassword())) && (users.get(0).getMail().equals(user.getMail()));
 
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getPassword().equals(user.getPassword())) {
@@ -140,7 +157,7 @@ public class UserService implements Serializable, UserInterface {
         return checkLogin;
 
     }
-    public boolean checkMailAllreadyInUse(UserModel user) {
+    public boolean checkMailAllreadyInUse(UserModelWithPassword user) {
 
         users = filePersistance.getUsersFromFile();
 
