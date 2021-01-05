@@ -1,9 +1,5 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
-import org.springframework.data.annotation.Id;
 import java.io.Serializable;
 
 /**
@@ -15,21 +11,18 @@ public class UserModel implements Serializable {
 
     private String username;
     private String mail;
-    //private String password;
 
     public UserModel() {
     }
 
     public UserModel(UserModel user) {
         this.username = user.username;
-        this.mail = user.mail; //also ID
-        //this.password = user.password;
+        this.mail = user.mail;
     }
 
     public UserModel(String username, String mail) {
         this.username = username;
-        this.mail = mail; //also ID
-        //this.password = user.password;
+        this.mail = mail;
     }
 
     @Override
@@ -46,28 +39,12 @@ public class UserModel implements Serializable {
         return mail;
     }
 
-    /* public String getPassword() {
-        return password;
-    }
-
-    */
-
     public void setUsername(String username) {
         this.username = username;
     }
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    /*
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
-    */
-
-    public void setId(String valueOf) {
     }
 
 }

@@ -1,7 +1,5 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
 public class UserModelWithPassword extends UserModel implements Serializable {

@@ -17,7 +17,6 @@ public class UserController {
 
     @Autowired
     private UserInterface userService;
-    //UserService userService = new UserService();
 
     @GetMapping
     public ResponseEntity<List<UserModel>> getUsers() {

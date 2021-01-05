@@ -1,25 +1,19 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
-
-//@Data
-//@Entity
 
 public class ItemModel implements Serializable {
 
     private int id;
-    @NotBlank
-    @Size(min = 1, max = 20)
+    //@NotBlank => kann genutzt werden um Info's im Swagger anzuzeigen
+    //@Size(min = 1, max = 20) => kann genutzt werden um Info's im Swagger anzuzeigen
     private String name;
     private LocalDate dateCreated;
     private String description;
     private boolean isLent;
     private Double rating;
-    private UserModel owner;
+    private UserModel owner; //private UserModelWithPassword owner; -> dann kommt Passwort auch mit im API Response
     private LocalDate lentFrom;
     private LocalDate rentTill;
 
@@ -27,16 +21,6 @@ public class ItemModel implements Serializable {
     }
 
     public ItemModel(ItemModel item) {
-
-        int id; //number
-        String name;
-        Date dateCreated;
-        String description;
-        boolean isLent;
-        Double rating;
-        UserModel owner;
-        LocalDate lentFrom;
-        LocalDate rentTill;
 
         this.id = item.id;
         this.name = item.name;

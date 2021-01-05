@@ -12,6 +12,7 @@ public class ItemService implements Serializable, ItemInterface {
     FilePersistance filePersistance = new FilePersistance();
 
     //===> CRUD methods
+    @Override
     public List<ItemModel> getAllItems() throws IOException, ClassNotFoundException {
 
         items = filePersistance.getItemsFromFile();
@@ -19,6 +20,7 @@ public class ItemService implements Serializable, ItemInterface {
         return items;
 
     }
+    @Override
     public List<ItemModel> addNewItem(ItemModel item) throws IOException, ClassNotFoundException {
 
         items = filePersistance.getItemsFromFile();
@@ -32,6 +34,7 @@ public class ItemService implements Serializable, ItemInterface {
         return items;
 
     }
+    @Override
     public List<ItemModel> deleteItemById(int id) {
 
         ItemModel item;
@@ -50,6 +53,7 @@ public class ItemService implements Serializable, ItemInterface {
 
         return items;
     }
+    @Override
     public List<ItemModel> updateItem(int id, ItemModel itemUpdate) {
 
         items = filePersistance.getItemsFromFile();
@@ -74,6 +78,7 @@ public class ItemService implements Serializable, ItemInterface {
     }
 
     //===> support methods
+    @Override
     public int getHighestId() {
 
         int id = 0;
@@ -88,6 +93,7 @@ public class ItemService implements Serializable, ItemInterface {
 
         return id;
     }
+    @Override
     public boolean isItemExist(int id) {
 
         ItemModel item = new ItemModel();
@@ -105,6 +111,7 @@ public class ItemService implements Serializable, ItemInterface {
         return false;
 
     }
+    @Override
     public boolean addItemCheckUserMailExist(ItemModel item) throws NullPointerException {
 
         //try {

@@ -1,7 +1,6 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.persistance;
 
 import ch.zhaw.mas.sharingAppServer.serverSite.domain.ItemModel;
-import ch.zhaw.mas.sharingAppServer.serverSite.domain.UserModel;
 import ch.zhaw.mas.sharingAppServer.serverSite.domain.UserModelWithPassword;
 
 import java.io.*;
@@ -12,7 +11,6 @@ public class FilePersistance {
 
     private List<ItemModel> items = new ArrayList<>();
     private List<UserModelWithPassword> users = new ArrayList<>();
-    //private List<UserModel> users = new ArrayList<>();
 
     public List<ItemModel> getItemsFromFile(){
 
