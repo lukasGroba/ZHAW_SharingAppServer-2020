@@ -15,7 +15,7 @@ public class ItemModel implements Serializable {
     private Double rating;
     private UserModel owner; //private UserModelWithPassword owner; -> dann kommt Passwort auch mit im API Response
     private LocalDate lentFrom;
-    private LocalDate rentTill;
+    private LocalDate lentTill;
 
     public ItemModel() {
     }
@@ -30,7 +30,7 @@ public class ItemModel implements Serializable {
         this.rating = item.rating;
         this.owner = item.owner;
         this.lentFrom = item.lentFrom;
-        this.rentTill = item.rentTill;
+        this.lentTill = item.lentTill;
 
     }
 
@@ -71,7 +71,7 @@ public class ItemModel implements Serializable {
     }
 
     public LocalDate getRentTill() {
-        return rentTill;
+        return lentTill;
     }
 
     public void setHighestId(int highestId) {
