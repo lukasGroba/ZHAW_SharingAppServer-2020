@@ -25,10 +25,10 @@ public class UserModel implements Serializable {
         this.mail = mail;
     }
 
-    @Override
+    //@Override
     public String toString() {
         return String.format(
-                "User[username=%s, mail='%s', password='%s']", username, mail);
+                "User[username=%s, mail='%s']", username, mail);
     }
 
     public String getUsername() {

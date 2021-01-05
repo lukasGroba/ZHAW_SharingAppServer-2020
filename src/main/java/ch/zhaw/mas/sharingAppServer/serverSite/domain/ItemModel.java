@@ -91,4 +91,9 @@ public class ItemModel implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
 }

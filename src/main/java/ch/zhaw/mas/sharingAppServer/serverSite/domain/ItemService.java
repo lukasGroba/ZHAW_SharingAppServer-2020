@@ -66,6 +66,7 @@ public class ItemService implements Serializable, ItemInterface {
             if (item.getId() == id) {
                 item.setDescription(itemUpdate.getDescription());
                 item.setName(itemUpdate.getName());
+                item.setRating(itemUpdate.getRating());
 
             }
 

@@ -18,9 +18,7 @@ public class UserService implements Serializable, UserInterface {
     @Override
     public List<UserModel> getAllUsers() {
 
-
-       List<UserModel> usersWithoutPassword = new ArrayList<>();
-       UserModel userWithoutPassword = new UserModel();
+       List<UserModel> usersWithoutPassword = new ArrayList<UserModel>();
 
        users = filePersistance.getUsersFromFile();
        System.out.println("Object has been deserialized getAllUsers");
@@ -28,9 +26,10 @@ public class UserService implements Serializable, UserInterface {
        if (!users.isEmpty()) {
            for (int i = 0; i < users.size(); i++) {
 
+               UserModel userWithoutPassword = new UserModel();
                userWithoutPassword.setMail(users.get(i).getMail());
                userWithoutPassword.setUsername(users.get(i).getUsername());
-               usersWithoutPassword.add(i, userWithoutPassword);
+               usersWithoutPassword.add(userWithoutPassword);
 
            }
 
@@ -166,7 +165,7 @@ public class UserService implements Serializable, UserInterface {
         System.out.println("Object has been deserialized checkLogin");
 
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getPassword().equals(user.getPassword())) {
+            if (users.get(i).getPassword().equals(user.getPassword()) && users.get(i).getMail().equals(user.getMail())) {
                 return true;
             }
         }
