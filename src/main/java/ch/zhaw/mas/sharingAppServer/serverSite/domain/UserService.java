@@ -82,6 +82,8 @@ public class UserService implements Serializable, UserInterface {
     @Override
     public List<UserModelWithPassword> deleteUserByMail(String mail) {
 
+        ItemService itemService = new ItemService();
+
         UserModel user;
 
         users = filePersistance.getUsersFromFile();
@@ -92,6 +94,7 @@ public class UserService implements Serializable, UserInterface {
             //System.out.println(users.get(i));
             user  = users.get(i);
             if (user.getMail().equals(mail)) {
+                itemService.deleteItemByMail(mail);
                 users.remove(i);
             }
         }

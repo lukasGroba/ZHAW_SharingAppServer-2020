@@ -12,6 +12,7 @@ public interface ItemInterface {
     public abstract List<ItemModel> updateItem(int id, ItemModel itemUpdate);
 
     //===> support methods
+    public void deleteItemByMail(String mail); //Support Methode beim Löschen eines Users
     public abstract boolean isItemExist(int id);
     public abstract int getHighestId();
     public abstract boolean addItemCheckUserMailExist(ItemModel item) throws NullPointerException;

@@ -54,6 +54,24 @@ public class ItemService implements Serializable, ItemInterface {
         return items;
     }
     @Override
+    public void deleteItemByMail(String mail) {
+
+        ItemModel item;
+
+        items = filePersistance.getItemsFromFile();
+
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println(items.get(i));
+            item  = items.get(i);
+            if (item.getMailFromOwner(item).equals(mail)) {
+                items.remove(i);
+            };
+        }
+
+        FilePersistance.writeItemsToFile(items);
+
+    }
+    @Override
     public List<ItemModel> updateItem(int id, ItemModel itemUpdate) {
 
         items = filePersistance.getItemsFromFile();
@@ -64,9 +82,13 @@ public class ItemService implements Serializable, ItemInterface {
             ItemModel item  = items.get(i);
 
             if (item.getId() == id) {
-                item.setDescription(itemUpdate.getDescription());
                 item.setName(itemUpdate.getName());
+                item.setDescription(itemUpdate.getDescription());
+                item.setIsLent(itemUpdate.getIsLent());
                 item.setRating(itemUpdate.getRating());
+                item.setName(itemUpdate.getName()); // geht noch nicht!
+                item.setLentFrom(itemUpdate.getLentFrom());
+                item.setLentTill(itemUpdate.getLentTill());
 
             }
 

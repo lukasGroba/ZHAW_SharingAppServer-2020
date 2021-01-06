@@ -70,7 +70,7 @@ public class ItemModel implements Serializable {
         return lentFrom;
     }
 
-    public LocalDate getRentTill() {
+    public LocalDate getLentTill() {
         return lentTill;
     }
 
@@ -94,6 +94,18 @@ public class ItemModel implements Serializable {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public void setLentFrom (LocalDate lentFrom) {
+        this.lentFrom = lentFrom;
+    }
+
+    public void setLentTill (LocalDate lentTill) {
+        this.lentTill = lentTill;
+    }
+
+    public void setIsLent(Boolean isLent) {
+        this.isLent = isLent;
     }
 
 }

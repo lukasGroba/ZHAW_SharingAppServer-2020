@@ -48,7 +48,7 @@ public class UserController {
             return new ResponseEntity<>("Data in request are missing", HttpStatus.BAD_REQUEST);
         }
         else if (userService.checkMailAllreadyInUse(user)) {
-                return new ResponseEntity<>("Mail already used by another user", HttpStatus.IM_USED);
+                return new ResponseEntity<>("Mail already used by another user", HttpStatus.FORBIDDEN);
         }
         else {
             userService.addNewUser(user);
