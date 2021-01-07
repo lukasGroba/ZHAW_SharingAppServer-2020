@@ -20,6 +20,7 @@ public class ItemModel implements Serializable {
     public ItemModel() {
     }
 
+
     public ItemModel(ItemModel item) {
 
         this.id = item.id;
@@ -54,9 +55,9 @@ public class ItemModel implements Serializable {
         return description;
     }
 
-    public boolean getIsLent() {
-        return isLent;
-    }
+//    public boolean getIsLent() {
+//        return isLent;
+//    }
 
     public Double getRating() {
         return rating;
@@ -104,8 +105,16 @@ public class ItemModel implements Serializable {
         this.lentTill = lentTill;
     }
 
-    public void setIsLent(Boolean isLent) {
-        this.isLent = isLent;
+//    public void setIsLent(Boolean isLent) {
+//        this.isLent = isLent;
+//    }
+
+    public boolean isLent() {
+        return isLent;
+    }
+
+    public void setLent(boolean lent) {
+        isLent = lent;
     }
 
 }
