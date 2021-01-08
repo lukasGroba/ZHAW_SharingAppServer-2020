@@ -1,10 +1,6 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
-//import ch.zhaw.mas.sharingAppServer.serverSite.persistance.DbPersistance;
 import ch.zhaw.mas.sharingAppServer.serverSite.persistance.FilePersistance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -14,25 +10,41 @@ import java.util.List;
 @Service
 public class UserService implements Serializable, UserInterface {
 
-    private List<UserModel> users = new ArrayList<>();
+    private List<UserModelWithPassword> users = new ArrayList<>();
+    private List<UserModel> usersWithoutPassword = new ArrayList<>();
     FilePersistance filePersistance = new FilePersistance();
 
-    @Autowired
-    private JdbcTemplate jtm;
-
     //===> CRUD methods
-   @Override
+    @Override
     public List<UserModel> getAllUsers() {
 
-        //With file persistance:
-            users = filePersistance.getUsersFromFile();
-            System.out.println("Object has been deserialized getAllUsers");
-            return users;
+       List<UserModel> usersWithoutPassword = new ArrayList<UserModel>();
+
+       users = filePersistance.getUsersFromFile();
+       System.out.println("Object has been deserialized getAllUsers");
+
+       if (!users.isEmpty()) {
+           for (int i = 0; i < users.size(); i++) {
+
+               UserModel userWithoutPassword = new UserModel();
+               userWithoutPassword.setMail(users.get(i).getMail());
+               userWithoutPassword.setUsername(users.get(i).getUsername());
+               usersWithoutPassword.add(userWithoutPassword);
+
+           }
+
+           return usersWithoutPassword;
+       }
+
+       return usersWithoutPassword;
 
     }
+    @Override
     public UserModel getUserByMail(String mail) {
 
-        UserModel user = null;
+        UserModelWithPassword user = null;
+        List<UserModel> usersWithoutPassword = new ArrayList<>();
+        UserModel userWithoutPassword = new UserModel();
 
         //With file persistance:
         users = filePersistance.getUsersFromFile();
@@ -41,13 +53,16 @@ public class UserService implements Serializable, UserInterface {
         for (int i = 0; i < users.size(); i++) {
             user  = users.get(i);
             if (users.get(i).getMail().equals(mail)) {
-                return user;
+                userWithoutPassword.setMail(users.get(i).getMail());
+                userWithoutPassword.setUsername(users.get(i).getUsername());
+                return userWithoutPassword;
             }
         }
-        return user = null;
+        return userWithoutPassword = null;
 
     }
-    public List<UserModel> addNewUser(UserModel user) {
+    @Override
+    public List<UserModelWithPassword> addNewUser(UserModelWithPassword user) {
 
         FilePersistance filePersistance = new FilePersistance();
 
@@ -64,7 +79,10 @@ public class UserService implements Serializable, UserInterface {
         return users;
 
     }
-    public List<UserModel> deleteUserByMail(String mail) {
+    @Override
+    public List<UserModelWithPassword> deleteUserByMail(String mail) {
+
+        ItemService itemService = new ItemService();
 
         UserModel user;
 
@@ -76,6 +94,7 @@ public class UserService implements Serializable, UserInterface {
             //System.out.println(users.get(i));
             user  = users.get(i);
             if (user.getMail().equals(mail)) {
+                itemService.deleteItemByMail(mail);
                 users.remove(i);
             }
         }
@@ -86,7 +105,8 @@ public class UserService implements Serializable, UserInterface {
 
         return users;
     }
-    public List<UserModel> deleteAllUser() {
+    @Override
+    public List<UserModelWithPassword> deleteAllUser() {
 
         FilePersistance filePersistance = new FilePersistance();
 
@@ -99,6 +119,27 @@ public class UserService implements Serializable, UserInterface {
     }
 
     //===> support methods
+    @Override
+    public boolean checkMailAllreadyInUse(UserModelWithPassword user) {
+
+        users = filePersistance.getUsersFromFile();
+
+        System.out.println("Object has been deserialized checkMailExist");
+
+        if (!users.isEmpty()) {
+
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getMail().equals(user.getMail())) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+
+    }
+    @Override
     public boolean checkMailAllreadyInUse(String mail) {
 
         users = filePersistance.getUsersFromFile();
@@ -118,45 +159,21 @@ public class UserService implements Serializable, UserInterface {
         return false;
 
     }
-    public boolean checkLogin(UserModel user) {
+    @Override
+    public boolean checkLogin(UserModelWithPassword user) {
 
         boolean checkLogin = false;
 
         users = filePersistance.getUsersFromFile();
         System.out.println("Object has been deserialized checkLogin");
 
-        System.out.println(users.get(0).getPassword());
-        System.out.println(user.getPassword());
-        System.out.println(users.get(0).getMail());
-        System.out.println(user.getMail());
-        checkLogin = (users.get(0).getPassword().equals(user.getPassword())) && (users.get(0).getMail().equals(user.getMail()));
-
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getPassword().equals(user.getPassword())) {
+            if (users.get(i).getPassword().equals(user.getPassword()) && users.get(i).getMail().equals(user.getMail())) {
                 return true;
             }
         }
 
         return checkLogin;
-
-    }
-    public boolean checkMailAllreadyInUse(UserModel user) {
-
-        users = filePersistance.getUsersFromFile();
-
-        System.out.println("Object has been deserialized checkMailExist");
-
-        if (!users.isEmpty()) {
-
-            for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).getMail().equals(user.getMail())) {
-                    return true;
-                }
-            }
-
-        }
-
-        return false;
 
     }
 

@@ -1,42 +1,27 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
-
-//@Data
-//@Entity
 
 public class ItemModel implements Serializable {
 
     private int id;
-    @NotBlank
-    @Size(min = 1, max = 20)
+    //@NotBlank => kann genutzt werden um Info's im Swagger anzuzeigen
+    //@Size(min = 1, max = 20) => kann genutzt werden um Info's im Swagger anzuzeigen
     private String name;
     private LocalDate dateCreated;
     private String description;
     private boolean isLent;
     private Double rating;
-    private UserModel owner;
+    private UserModel owner; //private UserModelWithPassword owner; -> dann kommt Passwort auch mit im API Response
     private LocalDate lentFrom;
-    private LocalDate rentTill;
+    private LocalDate lentTill;
 
     public ItemModel() {
     }
 
-    public ItemModel(ItemModel item) {
 
-        int id; //number
-        String name;
-        Date dateCreated;
-        String description;
-        boolean isLent;
-        Double rating;
-        UserModel owner;
-        LocalDate lentFrom;
-        LocalDate rentTill;
+    public ItemModel(ItemModel item) {
 
         this.id = item.id;
         this.name = item.name;
@@ -46,7 +31,7 @@ public class ItemModel implements Serializable {
         this.rating = item.rating;
         this.owner = item.owner;
         this.lentFrom = item.lentFrom;
-        this.rentTill = item.rentTill;
+        this.lentTill = item.lentTill;
 
     }
 
@@ -70,9 +55,9 @@ public class ItemModel implements Serializable {
         return description;
     }
 
-    public boolean getIsLent() {
-        return isLent;
-    }
+//    public boolean getIsLent() {
+//        return isLent;
+//    }
 
     public Double getRating() {
         return rating;
@@ -86,8 +71,8 @@ public class ItemModel implements Serializable {
         return lentFrom;
     }
 
-    public LocalDate getRentTill() {
-        return rentTill;
+    public LocalDate getLentTill() {
+        return lentTill;
     }
 
     public void setHighestId(int highestId) {
@@ -107,4 +92,29 @@ public class ItemModel implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public void setLentFrom (LocalDate lentFrom) {
+        this.lentFrom = lentFrom;
+    }
+
+    public void setLentTill (LocalDate lentTill) {
+        this.lentTill = lentTill;
+    }
+
+//    public void setIsLent(Boolean isLent) {
+//        this.isLent = isLent;
+//    }
+
+    public boolean isLent() {
+        return isLent;
+    }
+
+    public void setLent(boolean lent) {
+        isLent = lent;
+    }
+
 }

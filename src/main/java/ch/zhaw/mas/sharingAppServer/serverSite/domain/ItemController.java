@@ -8,9 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
-import java.awt.print.Book;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +20,11 @@ public class ItemController {
     private Integer itemId = 0;
     List<ItemModel> items = new ArrayList<>();
 
-    @Operation(summary = "Get all items")
-    @ApiResponses(value = {
+    @Operation(summary = "Get all items") // Swagger Doku
+    @ApiResponses(value = { //Swagger Doku
             @ApiResponse(responseCode = "200", description = "OK: Found items", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ItemModel.class)) }),
             @ApiResponse(responseCode = "404", description = "NOT FOUND: No items found", content = @Content) })
+
     @GetMapping
     public ResponseEntity<List<ItemModel>> getAllItems() throws IOException, ClassNotFoundException {
 
@@ -44,8 +43,8 @@ public class ItemController {
 
     }
 
-    @Operation(summary = "Add new Item (mail needs to be provided as id)")
-    @ApiResponses(value = {
+    @Operation(summary = "Add new Item (mail needs to be provided as id)") // Swagger Doku
+    @ApiResponses(value = { // Swagger Doku
             @ApiResponse(responseCode = "201", description = "CREATED: Item created", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ItemModel.class)) }),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN: Mail ist empty", content = @Content),
             @ApiResponse(responseCode = "406", description = "NOT ACCEPTABLE: No user with this mail exist", content = @Content),
