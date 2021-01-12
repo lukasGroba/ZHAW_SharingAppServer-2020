@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,13 +37,25 @@ public class ItemControllerTest {
     public void getAllItemsTest() throws Exception {
         ItemModel item = new ItemModel();
         item.setName("test item");
-        List<ItemModel> itemList = Arrays.asList(item);
+        ItemModel item2 = new ItemModel();
+        item2.setName("test item 2");
+        List<ItemModel> itemList = Arrays.asList(item, item2);
 
         given(itemService.getAllItems()).willReturn(itemList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/items"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)));
-
+                .andExpect(jsonPath("$", hasSize(itemList.size())))
+                .andExpect(jsonPath("$[0].name", is(itemList.get(0).getName())))
+                .andExpect(jsonPath("$[1].name", is(itemList.get(1).getName())));
     }
+
+//    @Test
+//    public void saveNewItemTest() throws Exception {
+//        ItemModel item = new ItemModel();
+//        item.setName("test item");
+//        mockMvc.perform(MockMvcRequestBuilders.post("/items", item))
+//                .andExpect(status().isForbidden());
+//
+//    }
 }
