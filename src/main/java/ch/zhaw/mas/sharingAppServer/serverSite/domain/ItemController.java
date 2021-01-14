@@ -26,7 +26,7 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "NOT FOUND: No items found", content = @Content) })
 
     @GetMapping
-    public ResponseEntity<List<ItemModel>> getAllItems() throws IOException, ClassNotFoundException {
+    public ResponseEntity<List<ItemModel>> getAllItems(@RequestParam("userLoggedInMail") String userLoggedInMail) throws IOException, ClassNotFoundException {
 
         ItemService itemService = new ItemService();
 
