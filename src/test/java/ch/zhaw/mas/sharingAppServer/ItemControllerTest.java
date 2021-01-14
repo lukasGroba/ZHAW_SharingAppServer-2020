@@ -35,12 +35,7 @@ public class ItemControllerTest {
 
     @Test
     public void getAllItemsTest() throws Exception {
-        ItemModel item = new ItemModel();
-        item.setName("test item");
-        ItemModel item2 = new ItemModel();
-        item2.setName("test item 2");
-        List<ItemModel> itemList = Arrays.asList(item, item2);
-
+        List<ItemModel> itemList = getItemTestList();
         given(itemService.getAllItems()).willReturn(itemList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/items"))
@@ -50,12 +45,23 @@ public class ItemControllerTest {
                 .andExpect(jsonPath("$[1].name", is(itemList.get(1).getName())));
     }
 
-//    @Test
-//    public void saveNewItemTest() throws Exception {
-//        ItemModel item = new ItemModel();
-//        item.setName("test item");
-//        mockMvc.perform(MockMvcRequestBuilders.post("/items", item))
-//                .andExpect(status().isForbidden());
-//
-//    }
+    @Test
+    public void deleteItemTest() throws Exception {
+        Integer itemId = 1;
+        given(itemService.isItemExist(itemId)).willReturn(false);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/items")
+                .param("id", itemId.toString()))
+                .andExpect(status().isNotFound());
+
+    }
+
+    private List<ItemModel> getItemTestList(){
+        ItemModel item = new ItemModel();
+        item.setName("test item");
+        ItemModel item2 = new ItemModel();
+        item2.setName("test item 2");
+        List<ItemModel> itemList = Arrays.asList(item, item2);
+        return itemList;
+    }
 }
