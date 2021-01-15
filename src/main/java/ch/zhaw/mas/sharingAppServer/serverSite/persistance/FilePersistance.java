@@ -7,6 +7,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is for persisting User and Items to/from a file.
+ *
+ * @author  Adrian Fischer
+ * @since   2020.12.08
+ * @version 0.2
+ */
+
 public class FilePersistance {
 
     private List<ItemModel> items = new ArrayList<>();

@@ -7,6 +7,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * UserService class defines the request logic for the endpoints used in the UserController class.
+ * @author Adrian Fischer
+ */
+
 @Service
 public class UserService implements Serializable, UserInterface {
 
