@@ -3,6 +3,11 @@ package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Item interface description implements in ItemService
+ * @author Adrian Fischer
+ */
+
 public interface ItemInterface {
 
     //===> CRUD methods

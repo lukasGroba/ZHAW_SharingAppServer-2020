@@ -2,6 +2,11 @@ package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
 import java.util.List;
 
+/**
+ * User interface description implements in UserService
+ * @author Adrian Fischer
+ */
+
 
 public interface UserInterface {
 

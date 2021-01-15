@@ -3,7 +3,7 @@ package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 import java.io.Serializable;
 
 /**
- *
+ * Model of the User for Persistence.
  * @author Adrian Fischer
  */
 

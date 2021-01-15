@@ -3,6 +3,11 @@ package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * Model of the Item for Persistence.
+ * @author Adrian Fischer
+ */
+
 public class ItemModel implements Serializable {
 
     private int id;

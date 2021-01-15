@@ -7,6 +7,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ItemService class defines the request logic for the endpoints used in the ItemController class.
+ * @author Adrian Fischer
+ */
+
 @Service
 public class ItemService implements Serializable, ItemInterface {
 
@@ -14,6 +19,10 @@ public class ItemService implements Serializable, ItemInterface {
     FilePersistance filePersistance = new FilePersistance();
 
     //===> CRUD methods
+    /**
+     * getAllItems read the data from the file storage and return it to the controller.
+     * @author Adrian Fischer
+     */
     @Override
     public List<ItemModel> getAllItems() throws IOException, ClassNotFoundException {
 
@@ -22,6 +31,11 @@ public class ItemService implements Serializable, ItemInterface {
         return items;
 
     }
+
+    /**
+     * addNewItem reads the item list from the file storage, receive a new item over the controller, add it to the item list and store this in the file storage.
+     * @author Adrian Fischer
+     */
     @Override
     public List<ItemModel> addNewItem(ItemModel item) throws IOException, ClassNotFoundException {
 
@@ -36,6 +50,11 @@ public class ItemService implements Serializable, ItemInterface {
         return items;
 
     }
+
+    /**
+     * deleteItemById reads the item list from the file storage, receive a item to delete by id over the controller, delete it on the item list and store the list in the file storage.
+     * @author Adrian Fischer
+     */
     @Override
     public List<ItemModel> deleteItemById(int id) {
 
@@ -55,6 +74,11 @@ public class ItemService implements Serializable, ItemInterface {
 
         return items;
     }
+
+    /**
+     * deleteItemByMail reads the item list from the file storage, receive a item to delete by mail over the controller, delete it on the item list and store the list in the file storage.
+     * @author Adrian Fischer
+     */
     @Override
     public void deleteItemByMail(String mail) {
 
@@ -73,6 +97,11 @@ public class ItemService implements Serializable, ItemInterface {
         FilePersistance.writeItemsToFile(items);
 
     }
+
+    /**
+     * updateItem reads the item list from the file storage, receive an item update by id over the controller, update the item in the list and store the list in the file storage.
+     * @author Adrian Fischer
+     */
     @Override
     public List<ItemModel> updateItem(int id, ItemModel itemUpdate) {
 
@@ -103,6 +132,10 @@ public class ItemService implements Serializable, ItemInterface {
     }
 
     //===> support methods
+    /**
+     * getHighestId is a helper method for add a new item with a unique id to the item list.
+     * @author Adrian Fischer
+     */
     @Override
     public int getHighestId() {
 
@@ -118,6 +151,11 @@ public class ItemService implements Serializable, ItemInterface {
 
         return id;
     }
+
+    /**
+     * isItemExist is a helper method to check if an item based on a certain id exist.
+     * @author Adrian Fischer
+     */
     @Override
     public boolean isItemExist(int id) {
 
@@ -136,6 +174,11 @@ public class ItemService implements Serializable, ItemInterface {
         return false;
 
     }
+
+    /**
+     * addItemCheckUserMailExist is a helper method to check the dependency add item to the list and user mail exist (key).
+     * @author Adrian Fischer
+     */
     @Override
     public boolean addItemCheckUserMailExist(ItemModel item) throws NullPointerException {
 

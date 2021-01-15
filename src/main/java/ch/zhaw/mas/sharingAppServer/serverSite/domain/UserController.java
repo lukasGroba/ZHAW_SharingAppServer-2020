@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * User controller class. Defines the server user endpoints which can be called from a client.
+ * @author Adrian Fischer
+ */
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -18,6 +23,12 @@ public class UserController {
     @Autowired
     private UserInterface userService;
 
+    /**
+     * GET Methode: http://localhost:8080/users
+     * This endpoint will get all the users from storage.
+     * @author Adrian Fischer
+     */
+
     @GetMapping
     public ResponseEntity<List<UserModel>> getUsers() {
 
@@ -27,6 +38,12 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
+
+    /**
+     * GET Methode: http://localhost:8080/users/user?mail=...,
+     * This endpoint will get the user which belongs to a specific mail.
+     * @author Adrian Fischer
+     */
 
     @GetMapping ("/user")
     public ResponseEntity<Object> getUserByMail(@RequestParam (value = "mail") String mail) {
@@ -40,6 +57,12 @@ public class UserController {
         }
 
     }
+
+    /**
+     * POST Methode: http://localhost:8080/users
+     * This endpoint will add a new user to the storage. This controller checks if all necessary information are sent in the request body and if the mail already exists.
+     * @author Adrian Fischer
+     */
 
     @PostMapping
     public ResponseEntity<Object> addUser(@RequestBody UserModelWithPassword user) {
@@ -56,6 +79,12 @@ public class UserController {
         }
     }
 
+    /**
+     * POST Methode: http://localhost:8080/users/login
+     * This endpoint checks if mail and password exists in the storage and match together. will add a new user to the storage.
+     * @author Adrian Fischer
+     */
+
     @PostMapping ("/login")
     public ResponseEntity<Object> checkLogin(@RequestBody UserModelWithPassword user) {
 
@@ -64,6 +93,12 @@ public class UserController {
         }
         return new ResponseEntity<>("Login check not successful", HttpStatus.UNAUTHORIZED);
     }
+
+    /**
+     * DELETE Methode: http://localhost:8080/users?mail=...
+     * This endpoint deletes a user based on the mail as input parameter.
+     * @author Adrian Fischer
+     */
 
     @DeleteMapping
     public ResponseEntity<List<UserModelWithPassword>> deleteUserByMail(@RequestParam(value = "mail") String mail) {
@@ -74,6 +109,12 @@ public class UserController {
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    /**
+     * DELETE Methode: http://localhost:8080/users/deleteAll
+     * This endpoint deletes all users and all the items in the storage.
+     * @author Adrian Fischer
+     */
 
     @DeleteMapping ("/deleteAllUser")
     public ResponseEntity<List<UserModelWithPassword>> deleteAllUser() {
