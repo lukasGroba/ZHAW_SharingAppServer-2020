@@ -20,6 +20,11 @@ public class UserService implements Serializable, UserInterface {
     FilePersistance filePersistance = new FilePersistance();
 
     //===> CRUD methods
+
+    /**
+     * getAllUser read the data from the file storage and return the users (without the password) to the controller.
+     * @author Adrian Fischer
+     */
     @Override
     public List<UserModel> getAllUsers() {
 
@@ -44,6 +49,11 @@ public class UserService implements Serializable, UserInterface {
        return usersWithoutPassword;
 
     }
+
+    /**
+     * getUserByMail read the data from the file storage and return a user for a specifc mail (without the password) to the controller.
+     * @author Adrian Fischer
+     */
     @Override
     public UserModel getUserByMail(String mail) {
 
@@ -66,6 +76,11 @@ public class UserService implements Serializable, UserInterface {
         return userWithoutPassword = null;
 
     }
+
+    /**
+     * addNewUser reads the user list from the file storage, receive a new user over the controller, add it to the user list and store this in the file storage.
+     * @author Adrian Fischer
+     */
     @Override
     public List<UserModelWithPassword> addNewUser(UserModelWithPassword user) {
 
@@ -84,6 +99,11 @@ public class UserService implements Serializable, UserInterface {
         return users;
 
     }
+
+    /**
+     * deleteUserByMail reads the user list from the file storage, receive a user to delete by mail over the controller, delete it on the user list and store the list in the file storage.
+     * @author Adrian Fischer
+     */
     @Override
     public List<UserModelWithPassword> deleteUserByMail(String mail) {
 
@@ -110,6 +130,11 @@ public class UserService implements Serializable, UserInterface {
 
         return users;
     }
+
+    /**
+     * deleteAllUser create and write this new user list to the file storage.
+     * @author Adrian Fischer
+     */
     @Override
     public List<UserModelWithPassword> deleteAllUser() {
 
@@ -124,6 +149,11 @@ public class UserService implements Serializable, UserInterface {
     }
 
     //===> support methods
+
+    /**
+     * checkMailAllreadyInUse is a helper method to check if a mail is already in use based on the user as input and therefore can't be used for a new user.
+     * @author Adrian Fischer
+     */
     @Override
     public boolean checkMailAllreadyInUse(UserModelWithPassword user) {
 
@@ -144,6 +174,11 @@ public class UserService implements Serializable, UserInterface {
         return false;
 
     }
+
+    /**
+     * checkMailAllreadyInUse is a helper method to check if a mail is already in use based on mail as input parameter and therefore can't be used for a new user.
+     * @author Adrian Fischer
+     */
     @Override
     public boolean checkMailAllreadyInUse(String mail) {
 
@@ -164,6 +199,11 @@ public class UserService implements Serializable, UserInterface {
         return false;
 
     }
+
+    /**
+     * checkLogin is a helper method to check if a mail and password exists and match together.
+     * @author Adrian Fischer
+     */
     @Override
     public boolean checkLogin(UserModelWithPassword user) {
 
