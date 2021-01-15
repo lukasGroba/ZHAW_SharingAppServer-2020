@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class ItemController {
     private Integer itemId = 0;
     List<ItemModel> items = new ArrayList<>();
 
+    @Autowired
+    private ItemInterface itemService;
+
     @Operation(summary = "Get all items") // Swagger Doku
     @ApiResponses(value = { //Swagger Doku
             @ApiResponse(responseCode = "200", description = "OK: Found items", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ItemModel.class)) }),
@@ -28,7 +32,7 @@ public class ItemController {
     @GetMapping
     public ResponseEntity<List<ItemModel>> getAllItems() throws IOException, ClassNotFoundException {
 
-        ItemService itemService = new ItemService();
+//        ItemService itemService = new ItemService();
 
         try {
             items = itemService.getAllItems();
@@ -52,7 +56,7 @@ public class ItemController {
     @PostMapping
     public ResponseEntity<Object> addNewItem(@RequestBody ItemModel item) {
 
-        ItemService itemService = new ItemService();
+//        ItemService itemService = new ItemService();
 
         try {
             if (itemService.addItemCheckUserMailExist(item)){
@@ -78,7 +82,7 @@ public class ItemController {
     @DeleteMapping
     public ResponseEntity<Object> deleteItemById(@RequestParam("id") int id) {
 
-        ItemService itemService = new ItemService();
+//        ItemService itemService = new ItemService();
 
         if (itemService.isItemExist(id)){
             items = itemService.deleteItemById(id);
@@ -94,7 +98,7 @@ public class ItemController {
     public ResponseEntity<Object> updateItem(@RequestParam("id") int id, @RequestBody ItemModel item)
     {
 
-        ItemService itemService = new ItemService();
+//        ItemService itemService = new ItemService();
 
         boolean isItemExist = itemService.isItemExist(id);
 

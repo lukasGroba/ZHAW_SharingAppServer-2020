@@ -1,11 +1,13 @@
 package ch.zhaw.mas.sharingAppServer.serverSite.domain;
 
 import ch.zhaw.mas.sharingAppServer.serverSite.persistance.FilePersistance;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ItemService implements Serializable, ItemInterface {
 
     private List<ItemModel> items = new ArrayList<>();
