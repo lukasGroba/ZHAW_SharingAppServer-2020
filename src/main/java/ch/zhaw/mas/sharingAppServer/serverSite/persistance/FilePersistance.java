@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author  Adrian Fischer
  * @since   2020.12.08
- * @version 0.2
+ * @version 1.0
  */
 
 public class FilePersistance {

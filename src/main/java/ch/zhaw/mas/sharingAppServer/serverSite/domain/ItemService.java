@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * ItemService class defines the request logic for the endpoints used in the ItemController class.
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 @Service
@@ -91,6 +92,7 @@ public class ItemService implements Serializable, ItemInterface {
             item  = items.get(i);
             if (item.getMailFromOwner(item).equals(mail)) {
                 items.remove(i);
+                i=i-1; //Delete item in list reduce list size -1
             };
         }
 

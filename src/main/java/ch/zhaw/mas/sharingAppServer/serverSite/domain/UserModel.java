@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * Model of the User for Persistence.
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 public class UserModel implements Serializable {

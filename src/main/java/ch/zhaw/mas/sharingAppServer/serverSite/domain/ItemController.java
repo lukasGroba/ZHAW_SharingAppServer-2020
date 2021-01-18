@@ -16,8 +16,9 @@ import java.util.List;
 
 /**
  * Item controller class. Defines the server item endpoints which can be called from a client.
- *
+ * @see <a href="http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config">Swagger UI</a>
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 @RestController

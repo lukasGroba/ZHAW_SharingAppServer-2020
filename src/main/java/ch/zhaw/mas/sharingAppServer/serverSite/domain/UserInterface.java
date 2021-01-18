@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * User interface description implements in UserService
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 

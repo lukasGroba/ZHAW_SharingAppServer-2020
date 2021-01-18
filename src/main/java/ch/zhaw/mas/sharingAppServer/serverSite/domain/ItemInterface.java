@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Item interface description implements in ItemService
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 public interface ItemInterface {

@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * UserService class defines the request logic for the endpoints used in the UserController class.
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 @Service
@@ -132,16 +133,19 @@ public class UserService implements Serializable, UserInterface {
     }
 
     /**
-     * deleteAllUser create and write this new user list to the file storage.
+     * deleteAllUser create and write a new empty user AND item list to the file storage.
      * @author Adrian Fischer
      */
     @Override
     public List<UserModelWithPassword> deleteAllUser() {
 
         FilePersistance filePersistance = new FilePersistance();
+        FilePersistance filePersistanceItem = new FilePersistance();
 
         users = new ArrayList<>();
+        List<ItemModel> items = new ArrayList<>();
 
+        filePersistanceItem.writeItemsToFile(items);
         filePersistance.writeUsersToFile(users);
 
         return users;

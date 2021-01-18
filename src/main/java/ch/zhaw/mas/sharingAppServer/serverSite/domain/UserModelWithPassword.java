@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * Model for a User containing the password of the User. Used for hiding password in the response to the client.
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 public class UserModelWithPassword extends UserModel implements Serializable {
