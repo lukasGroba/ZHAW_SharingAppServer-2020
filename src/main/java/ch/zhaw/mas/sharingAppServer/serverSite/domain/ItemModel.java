@@ -6,6 +6,7 @@ import java.time.LocalDate;
 /**
  * Model of the Item for Persistence.
  * @author Adrian Fischer
+ * @version 1.0
  */
 
 public class ItemModel implements Serializable {

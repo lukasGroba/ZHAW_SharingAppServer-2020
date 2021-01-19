@@ -10,7 +10,10 @@ import java.util.List;
 
 /**
  * User controller class. Defines the server user endpoints which can be called from a client.
+ * @see <a href="http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config">Swagger UI</a>
  * @author Adrian Fischer
+ * @version 1.0
+ * -link http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
  */
 
 @RestController
@@ -112,7 +115,7 @@ public class UserController {
 
     /**
      * DELETE Methode: http://localhost:8080/users/deleteAll
-     * This endpoint deletes all users and all the items in the storage.
+     * This endpoint deletes all users AND all the items in the storage.
      * @author Adrian Fischer
      */
 
